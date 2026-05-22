@@ -13,7 +13,7 @@ namespace bitcINTERFACE
 {
     public partial class Users_Form : Form
     {
-        private string connectionString = "Data Source=localhost;Initial Catalog=PetCareSolutions;Integrated Security=True";
+        private string connectionString = DatabaseConfig.ConnectionString;
         private int? selectedUserId = null;
         private string passwordPlaceholder = "Enter new password to change";
         public Users_Form()

@@ -13,7 +13,7 @@ namespace bitcINTERFACE
 {
     public partial class BookingRequests : Form
     {
-        private string connectionString = "Data Source=localhost;Initial Catalog=PetCareSolutions;Integrated Security=True";
+        private string connectionString = DatabaseConfig.ConnectionString;
 
         // This will store the details of the currently selected request
         private DataGridViewRow selectedRequestRow = null;

@@ -8,7 +8,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Configuration;
 
 namespace bitcINTERFACE
 {
@@ -18,9 +17,7 @@ namespace bitcINTERFACE
     /// </summary>
     public partial class login : Form
     {
-        // ✅ Improvement 1: Centralized connection string management
-        private string connectionString = ConfigurationManager.ConnectionStrings["bitcINTERFACE.Properties.Settings.PetCareSolutionsConnectionString"]?.ConnectionString
-            ?? "Data Source=localhost;Initial Catalog=PetCareSolutions;Integrated Security=True;Encrypt=True;TrustServerCertificate=True";
+        private string connectionString = DatabaseConfig.ConnectionString;
 
         // ✅ Improvement 2: Rate limiting to prevent brute force attacks
         private int _failedLoginAttempts = 0;
@@ -112,7 +109,7 @@ namespace bitcINTERFACE
             if (IsAccountLocked())
             {
                 var remainingMinutes = Math.Ceiling(LockoutDurationMinutes - (DateTime.Now - _lastFailedAttempt).TotalMinutes);
-                MessageBox.Show($"Account temporarily locked. Please try again in {remainingMinutes} minutes.", "Account Locked", MessageBoxButtons.OK, MessageBoxIcon.Lock);
+                MessageBox.Show($"Account temporarily locked. Please try again in {remainingMinutes} minutes.", "Account Locked", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 

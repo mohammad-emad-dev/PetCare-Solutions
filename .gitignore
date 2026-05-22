@@ -1,1 +1,49 @@
-Nothing should be ignored based on the provided file changes. The changes consist only of source/config files (.md files) and appear to be legitimate project content rather than build artifacts, dependencies, or temporary files.
+# Visual Studio
+.vs/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Build output
+[Bb]in/
+[Oo]bj/
+[Dd]ebug/
+[Rr]elease/
+x64/
+x86/
+[Aa][Rr][Mm]/
+[Aa][Rr][Mm]64/
+
+# .NET
+*.cache
+*.pdb
+*.ilk
+*.exe
+*.dll
+*.app
+*.appx
+*.msi
+*.nupkg
+packages/
+
+# Test and coverage output
+TestResults/
+*.trx
+coverage/
+*.coverage
+*.coveragexml
+
+# Logs and local config
+*.log
+*.tmp
+*.temp
+*.bak
+
+# SQL Server local files
+*.mdf
+*.ldf
+
+# OS files
+Thumbs.db
+Desktop.ini

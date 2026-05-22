@@ -13,7 +13,7 @@ namespace bitcINTERFACE
 {
     public partial class Pets_registration : Form
     {
-        private string connectionString = "Data Source=localhost;Initial Catalog=PetCareSolutions;Integrated Security=True";
+        private string connectionString = DatabaseConfig.ConnectionString;
         private int? selectedPetId = null; // To store the ID of the selected pet
 
 
@@ -257,5 +257,4 @@ namespace bitcINTERFACE
         }
     }
 }
-
 

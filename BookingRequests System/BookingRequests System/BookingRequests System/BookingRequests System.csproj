@@ -34,6 +34,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -52,6 +53,7 @@
     <Compile Include="Booking details.Designer.cs">
       <DependentUpon>Booking details.cs</DependentUpon>
     </Compile>
+    <Compile Include="DatabaseConfig.cs" />
     <Compile Include="LOGIN ONWERS.cs">
       <SubType>Form</SubType>
     </Compile>

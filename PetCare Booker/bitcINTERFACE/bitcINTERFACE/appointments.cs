@@ -13,8 +13,7 @@ namespace bitcINTERFACE
 {
     public partial class appointments : Form
     {
-        // Define the connection string
-        private string connectionString = "Data Source=localhost;Initial Catalog=PetCareSolutions;Integrated Security=True";
+        private string connectionString = DatabaseConfig.ConnectionString;
 
         // This variable will hold the ID of the currently selected appointment
         private int? selectedAppointmentId = null;
