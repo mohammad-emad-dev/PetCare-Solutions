@@ -78,6 +78,7 @@
     <Compile Include="medical_records.Designer.cs">
       <DependentUpon>medical_records.cs</DependentUpon>
     </Compile>
+    <Compile Include="PasswordHasher.cs" />
     <Compile Include="Owner registration.cs">
       <SubType>Form</SubType>
     </Compile>

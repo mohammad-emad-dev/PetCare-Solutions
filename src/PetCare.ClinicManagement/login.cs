@@ -92,14 +92,17 @@ namespace bitcINTERFACE
 
         private async void button1_Click(object sender, EventArgs e)
         {
+            string username = textBox1.Text.Trim();
+            string password = textBox2.Text;
+
             // ✅ Improvement 3: Input validation
-            if (string.IsNullOrWhiteSpace(textBox1.Text) || string.IsNullOrWhiteSpace(textBox2.Text))
+            if (string.IsNullOrWhiteSpace(username) || string.IsNullOrWhiteSpace(password))
             {
                 MessageBox.Show("Please enter username and password.", "Input Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
-            if (!IsValidUsername(textBox1.Text.Trim()))
+            if (!IsValidUsername(username))
             {
                 MessageBox.Show("Please enter a valid username (3-50 characters).", "Invalid Format", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
@@ -125,29 +128,40 @@ namespace bitcINTERFACE
                     using (SqlConnection conn = new SqlConnection(connectionString))
                     {
                         // SQL query to find the user
-                        string query = "SELECT passwordHash, role FROM users WHERE username = @username";
+                        string query = "SELECT id, passwordHash, role FROM users WHERE username = @username";
 
                         using (SqlCommand cmd = new SqlCommand(query, conn))
                         {
                             // ✅ Improvement 6: Explicit parameter type for SQL injection prevention
-                            cmd.Parameters.Add("@username", SqlDbType.NVarChar, 50).Value = textBox1.Text.Trim();
+                            cmd.Parameters.Add("@username", SqlDbType.NVarChar, 50).Value = username;
 
                             conn.Open();
-                            SqlDataReader reader = cmd.ExecuteReader();
+                            int? userId = null;
+                            string storedPasswordHash = null;
+                            string retrievedUserRole = null;
 
-                            // Check if the user was found
-                            if (reader.Read())
+                            using (SqlDataReader reader = cmd.ExecuteReader())
                             {
-                                string storedPasswordHash = reader["passwordHash"].ToString();
-                                string retrievedUserRole = reader["role"].ToString();
-
-                                // ✅ Improvement 7: Secure password comparison
-                                // Note: In production, use proper password hashing (BCrypt, PBKDF2, etc.)
-                                if (textBox2.Text == storedPasswordHash)
+                                if (reader.Read())
                                 {
+                                    userId = Convert.ToInt32(reader["id"]);
+                                    storedPasswordHash = reader["passwordHash"].ToString();
+                                    retrievedUserRole = reader["role"].ToString();
+                                }
+                            }
+
+                            if (userId.HasValue)
+                            {
+                                bool isPasswordValid = PasswordHasher.VerifyPassword(password, storedPasswordHash, out bool needsRehash);
+                                if (isPasswordValid)
+                                {
+                                    if (needsRehash)
+                                    {
+                                        UpdatePasswordHash(conn, userId.Value, PasswordHasher.HashPassword(password));
+                                    }
+
                                     // Login successful
-                                    string userRole = reader["role"].ToString();
-                                    string username = textBox1.Text.Trim();
+                                    string userRole = retrievedUserRole;
 
                                     this.Invoke(new Action(() =>
                                     {
@@ -198,6 +212,17 @@ namespace bitcINTERFACE
             {
                 button1.Enabled = true;
                 button1.Text = "Login";
+            }
+        }
+
+        private void UpdatePasswordHash(SqlConnection conn, int userId, string passwordHash)
+        {
+            string query = "UPDATE users SET passwordHash = @passwordHash WHERE id = @id";
+            using (SqlCommand cmd = new SqlCommand(query, conn))
+            {
+                cmd.Parameters.Add("@passwordHash", SqlDbType.NVarChar, 255).Value = passwordHash;
+                cmd.Parameters.Add("@id", SqlDbType.Int).Value = userId;
+                cmd.ExecuteNonQuery();
             }
         }
     }
