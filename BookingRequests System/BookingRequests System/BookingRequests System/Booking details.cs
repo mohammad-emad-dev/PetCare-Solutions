@@ -2,7 +2,6 @@
 using System.Data;
 using System.Data.SqlClient;
 using System.Windows.Forms;
-using System.Configuration;
 
 namespace BookingRequests_System
 {
@@ -12,9 +11,7 @@ namespace BookingRequests_System
     /// </summary>
     public partial class Booking_details : Form
     {
-        // ✅ Improvement 1: Centralized connection string management via App.config
-        private readonly string connectionString = ConfigurationManager.ConnectionStrings["BookingRequests_System.Properties.Settings.PetCareSolutionsConnectionString"]?.ConnectionString
-            ?? "Data Source=localhost;Initial Catalog=PetCareSolutions;Integrated Security=True;Encrypt=True;TrustServerCertificate=True";
+        private readonly string connectionString = DatabaseConfig.ConnectionString;
         
         private readonly int currentOwnerId;
 

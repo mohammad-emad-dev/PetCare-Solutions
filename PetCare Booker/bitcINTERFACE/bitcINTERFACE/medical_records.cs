@@ -14,7 +14,7 @@ namespace bitcINTERFACE
 {
     public partial class medical_records : Form
     {
-        private string connectionString = "Data Source=localhost;Initial Catalog=PetCareSolutions;Integrated Security=True";
+        private string connectionString = DatabaseConfig.ConnectionString;
         private Tuple<int, int> selectedRecordId = null; // (petId, recordId)
 
         public medical_records()

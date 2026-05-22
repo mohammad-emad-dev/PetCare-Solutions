@@ -1,103 +1,78 @@
-# 🐾 BookingRequests System
+# PetCare Solutions
 
-A Windows Forms application for pet care booking management, allowing pet owners to schedule appointments for their pets.
+PetCare Solutions is a Windows Forms solution for managing a veterinary clinic and letting pet owners submit booking requests.
 
-## ✨ Features
+## Projects
 
-- **Phone Number Login** - Pet owners authenticate using their registered phone number
-- **Pet Selection** - View and select from registered pets
-- **Booking Scheduling** - Choose date and time for pet care appointments
-- **SQL Server Integration** - Secure database connectivity
+| Project | Purpose | Startup form |
+| --- | --- | --- |
+| PetCare Booker | Clinic/admin application for users, owners, pets, veterinarians, appointments, medical records, and booking approvals. | `login` |
+| BookingRequests System | Pet owner application for phone-number login and appointment request submission. | `LOGIN_ONWERS` |
 
-## 📸 Screenshots
+## Technology
 
-### Login Screen
-![Login Screen](screenshots/login_screen.png)
+- C#
+- .NET Framework 4.7.2
+- Windows Forms
+- SQL Server
+- Visual Studio 2019 or newer
 
-### Booking Screen
-![Booking Screen](screenshots/booking_screen.png)
+## Folder Structure
 
-## 🛠️ Technology Stack
-
-| Component | Technology |
-|-----------|------------|
-| Language | C# |
-| Framework | .NET Framework 4.7.2 |
-| UI | Windows Forms |
-| Database | SQL Server |
-| IDE | Visual Studio |
-
-## 📋 Prerequisites
-
-- **Windows OS** (Windows 10/11 recommended)
-- **Visual Studio 2019+** with .NET Desktop Development workload
-- **SQL Server** (LocalDB or full instance)
-- **.NET Framework 4.7.2** Runtime
-
-## 🗃️ Database Setup
-
-1. Open SQL Server Management Studio (SSMS)
-2. Execute the `PetCareSolutions` database schema:
-
-```sql
--- Create database
-CREATE DATABASE PetCareSolutions;
-GO
-
--- Required tables: owners, pets, BookingRequests
+```text
+PetCareSolutions.sln
+SQL PetCare Solutions.sql
+PetCare Booker/
+  bitcINTERFACE/
+    bitcINTERFACE.sln
+    bitcINTERFACE/
+BookingRequests System/
+  BookingRequests System/
+    BookingRequests System.sln
+    BookingRequests System/
+screenshots/
 ```
 
-3. Configure connection string in `App.config`:
+The root `PetCareSolutions.sln` opens both applications together. The older per-project solution files are kept for compatibility.
+
+## Database Setup
+
+1. Open SQL Server Management Studio.
+2. Run `SQL PetCare Solutions.sql`.
+3. Confirm the `PetCareSolutions` database was created.
+4. Update both `App.config` files if your SQL Server instance is not `MOHAMMAD`:
 
 ```xml
 <connectionStrings>
-    <add name="BookingRequests_System.Properties.Settings.PetCareSolutionsConnectionString"
-         connectionString="Data Source=localhost;Initial Catalog=PetCareSolutions;Integrated Security=True"
-         providerName="System.Data.SqlClient" />
+  <add name="bitcINTERFACE.Properties.Settings.PetCareSolutionsConnectionString"
+       connectionString="Data Source=MOHAMMAD;Initial Catalog=PetCareSolutions;Integrated Security=True;Encrypt=True;TrustServerCertificate=True"
+       providerName="System.Data.SqlClient" />
 </connectionStrings>
 ```
 
-## 🚀 Getting Started
+The owner app uses the connection name:
 
-1. **Clone/Download** the repository
-2. **Open** `BookingRequests System.sln` in Visual Studio
-3. **Build** the solution (Ctrl+Shift+B)
-4. **Run** the application (F5)
-
-## 📁 Project Structure
-
-```
-BookingRequests System/
-├── BookingRequests System.sln          # Solution file
-└── BookingRequests System/
-    ├── Program.cs                      # Application entry point
-    ├── LOGIN ONWERS.cs                 # Login form (phone authentication)
-    ├── LOGIN ONWERS.Designer.cs        # Login form designer
-    ├── Booking details.cs              # Booking form logic
-    ├── Booking details.Designer.cs     # Booking form designer
-    ├── App.config                      # Configuration settings
-    ├── PetCareSolutionsDataSet.xsd     # Typed DataSet schema
-    └── Properties/
-        └── Settings.settings           # Application settings
+```text
+BookingRequests_System.Properties.Settings.PetCareSolutionsConnectionString
 ```
 
-## 📖 How It Works
+## Build and Run
 
-1. **Login Screen** - Enter your registered phone number
-2. **Pet Selection** - Select your pet from the dropdown
-3. **Schedule** - Pick a date and time for the appointment
-4. **Submit** - Send the booking request (status: Pending)
+1. Open `PetCareSolutions.sln` in Visual Studio.
+2. Restore/build the solution using `Build > Build Solution`.
+3. Set the desired startup project:
+   - `PetCare Booker` for clinic/admin workflows.
+   - `BookingRequests System` for owner booking workflows.
+4. Press `F5`.
 
-## 🔧 Configuration
+Command-line build with Visual Studio MSBuild:
 
-Edit `App.config` to modify:
-- Database connection string
-- Supported .NET runtime version
+```powershell
+& "C:\Program Files\Microsoft Visual Studio\18\Community\MSBuild\Current\Bin\MSBuild.exe" PetCareSolutions.sln /t:Build /p:Configuration=Release
+```
 
-## 📜 License
+## Notes
 
-This project is for educational purposes.
-
----
-
-**Developed for PetCare Solutions** 🐕 🐈
+- Generated folders such as `.vs`, `bin`, and `obj` are intentionally ignored.
+- Connection strings are read through `DatabaseConfig` in each application.
+- Password fields are still stored in the legacy `passwordHash` column format. Real password hashing should be a future security upgrade.

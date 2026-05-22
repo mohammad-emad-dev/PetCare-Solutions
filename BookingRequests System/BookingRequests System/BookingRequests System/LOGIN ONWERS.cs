@@ -2,7 +2,6 @@
 using System.Data;
 using System.Data.SqlClient;
 using System.Windows.Forms;
-using System.Configuration;
 using System.Security.Cryptography;
 using System.Text;
 
@@ -14,9 +13,7 @@ namespace BookingRequests_System
     /// </summary>
     public partial class LOGIN_ONWERS : Form
     {
-        // ✅ Improvement 1: Centralized connection string management via App.config
-        private readonly string connectionString = ConfigurationManager.ConnectionStrings["BookingRequests_System.Properties.Settings.PetCareSolutionsConnectionString"]?.ConnectionString 
-            ?? "Data Source=localhost;Initial Catalog=PetCareSolutions;Integrated Security=True;Encrypt=True;TrustServerCertificate=True";
+        private readonly string connectionString = DatabaseConfig.ConnectionString;
 
         // ✅ Improvement 2: Rate limiting to prevent brute force attacks
         private int _failedLoginAttempts = 0;
@@ -105,7 +102,7 @@ namespace BookingRequests_System
             if (IsAccountLocked())
             {
                 var remainingMinutes = Math.Ceiling(LockoutDurationMinutes - (DateTime.Now - _lastFailedAttempt).TotalMinutes);
-                MessageBox.Show($"Account temporarily locked. Please try again in {remainingMinutes} minutes.", "Account Locked", MessageBoxButtons.OK, MessageBoxIcon.Lock);
+                MessageBox.Show($"Account temporarily locked. Please try again in {remainingMinutes} minutes.", "Account Locked", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 

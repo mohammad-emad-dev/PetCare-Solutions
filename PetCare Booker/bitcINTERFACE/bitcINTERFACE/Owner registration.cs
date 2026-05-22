@@ -13,8 +13,7 @@ namespace bitcINTERFACE
 {
     public partial class Owner_registration : Form
     {
-        // Define the connection string to your database
-        private string connectionString = "Data Source=localhost;Initial Catalog=PetCareSolutions;Integrated Security=True";
+        private string connectionString = DatabaseConfig.ConnectionString;
 
         // This variable will hold the ID of the currently selected owner for updates and deletes
         private int? selectedOwnerId = null;

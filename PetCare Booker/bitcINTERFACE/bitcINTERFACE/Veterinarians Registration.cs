@@ -15,7 +15,7 @@ namespace bitcINTERFACE
 
     public partial class Veterinarians_Registration : Form
     {
-        private string connectionString = "Data Source=localhost;Initial Catalog=PetCareSolutions;Integrated Security=True";
+        private string connectionString = DatabaseConfig.ConnectionString;
         private int? selectedVetId = null;
         public Veterinarians_Registration()
         {
