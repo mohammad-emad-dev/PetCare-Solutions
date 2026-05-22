@@ -2,9 +2,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.14.36127.28
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PetCare Booker", "PetCare Booker\bitcINTERFACE\bitcINTERFACE\bitcINTERFACE.csproj", "{A9C50027-0549-44A9-80FB-968AF8755D41}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PetCare.ClinicManagement", "src\PetCare.ClinicManagement\PetCare.ClinicManagement.csproj", "{A9C50027-0549-44A9-80FB-968AF8755D41}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookingRequests System", "BookingRequests System\BookingRequests System\BookingRequests System\BookingRequests System.csproj", "{DE69DED6-080E-4C45-B71F-AFB756E790FA}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PetCare.OwnerBooking", "src\PetCare.OwnerBooking\PetCare.OwnerBooking.csproj", "{DE69DED6-080E-4C45-B71F-AFB756E790FA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

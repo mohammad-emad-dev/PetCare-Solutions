@@ -1,13 +1,13 @@
 # PetCare Solutions
 
-PetCare Solutions is a Windows Forms solution for managing a veterinary clinic and letting pet owners submit booking requests.
+PetCare Solutions is a Windows Forms solution for managing veterinary clinic operations and pet owner booking requests.
 
 ## Projects
 
 | Project | Purpose | Startup form |
 | --- | --- | --- |
-| PetCare Booker | Clinic/admin application for users, owners, pets, veterinarians, appointments, medical records, and booking approvals. | `login` |
-| BookingRequests System | Pet owner application for phone-number login and appointment request submission. | `LOGIN_ONWERS` |
+| PetCare.ClinicManagement | Clinic/admin application for users, owners, pets, veterinarians, appointments, medical records, and booking approvals. | `login` |
+| PetCare.OwnerBooking | Pet owner application for phone-number login and appointment request submission. | `LOGIN_ONWERS` |
 
 ## Technology
 
@@ -17,28 +17,28 @@ PetCare Solutions is a Windows Forms solution for managing a veterinary clinic a
 - SQL Server
 - Visual Studio 2019 or newer
 
-## Folder Structure
+## Repository Structure
 
 ```text
 PetCareSolutions.sln
-SQL PetCare Solutions.sql
-PetCare Booker/
-  bitcINTERFACE/
-    bitcINTERFACE.sln
-    bitcINTERFACE/
-BookingRequests System/
-  BookingRequests System/
-    BookingRequests System.sln
-    BookingRequests System/
-screenshots/
+src/
+  PetCare.ClinicManagement/
+    PetCare.ClinicManagement.csproj
+  PetCare.OwnerBooking/
+    PetCare.OwnerBooking.csproj
+database/
+  PetCareSolutions.sql
+docs/
+  MAINTENANCE.md
+  screenshots/
 ```
 
-The root `PetCareSolutions.sln` opens both applications together. The older per-project solution files are kept for compatibility.
+The root `PetCareSolutions.sln` is the main entry point for development.
 
 ## Database Setup
 
 1. Open SQL Server Management Studio.
-2. Run `SQL PetCare Solutions.sql`.
+2. Run `database/PetCareSolutions.sql`.
 3. Confirm the `PetCareSolutions` database was created.
 4. Update both `App.config` files if your SQL Server instance is not `MOHAMMAD`:
 
@@ -59,10 +59,10 @@ BookingRequests_System.Properties.Settings.PetCareSolutionsConnectionString
 ## Build and Run
 
 1. Open `PetCareSolutions.sln` in Visual Studio.
-2. Restore/build the solution using `Build > Build Solution`.
+2. Build the solution using `Build > Build Solution`.
 3. Set the desired startup project:
-   - `PetCare Booker` for clinic/admin workflows.
-   - `BookingRequests System` for owner booking workflows.
+   - `PetCare.ClinicManagement` for clinic/admin workflows.
+   - `PetCare.OwnerBooking` for owner booking workflows.
 4. Press `F5`.
 
 Command-line build with Visual Studio MSBuild:

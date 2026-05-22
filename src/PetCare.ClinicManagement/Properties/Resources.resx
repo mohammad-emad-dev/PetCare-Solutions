@@ -130,12 +130,6 @@
   <data name="images" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\images.jpeg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="images (2)" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\images (2).jpeg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="workplace-with-blue-office-supplies_23-2147843328" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\workplace-with-blue-office-supplies_23-2147843328.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="pngtree-veterinary-clinic-doctor-examining-png-image_4760886" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\pngtree-veterinary-clinic-doctor-examining-png-image_4760886.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -144,9 +138,6 @@
   </data>
   <data name="pngtree-simple-medical-protection-prevention-and-control-prevention-hospital-bulletin-board-theme-image_1513799" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\pngtree-simple-medical-protection-prevention-and-control-prevention-hospital-bulletin-board-theme-image_1513799.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="workplace-with-blue-office-supplies_23-21478433281" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\workplace-with-blue-office-supplies_23-21478433281.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="pngtree-veterinary-clinic-doctor-examining-image_78614" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\pngtree-veterinary-clinic-doctor-examining-image_78614.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
