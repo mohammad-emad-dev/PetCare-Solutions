@@ -60,15 +60,28 @@ namespace bitcINTERFACE
             {
                 try
                 {
-                    string query = "SELECT * FROM users";
+                    string query = "SELECT id, username, role, dateCreated FROM users";
                     SqlDataAdapter adapter = new SqlDataAdapter(query, conn);
                     DataTable dt = new DataTable();
                     adapter.Fill(dt);
                     dataGridView1.DataSource = dt;
+                    HidePasswordColumn();
                 }
                 catch (Exception ex)
                 {
                     MessageBox.Show("Failed to load users' data: " + ex.Message);
+                }
+            }
+        }
+
+        private void HidePasswordColumn()
+        {
+            foreach (DataGridViewColumn column in dataGridView1.Columns)
+            {
+                if (string.Equals(column.DataPropertyName, "passwordHash", StringComparison.OrdinalIgnoreCase) ||
+                    string.Equals(column.Name, "passwordHashDataGridViewTextBoxColumn", StringComparison.OrdinalIgnoreCase))
+                {
+                    column.Visible = false;
                 }
             }
         }
@@ -151,7 +164,7 @@ namespace bitcINTERFACE
                     using (SqlCommand cmd = new SqlCommand(query, conn))
                     {
                         cmd.Parameters.AddWithValue("@username", textBox2.Text);
-                        cmd.Parameters.AddWithValue("@password", textBox3.Text);
+                        cmd.Parameters.AddWithValue("@password", PasswordHasher.HashPassword(textBox3.Text));
                         cmd.Parameters.AddWithValue("@role", comboBox1.SelectedItem.ToString());
                         cmd.ExecuteNonQuery();
                         MessageBox.Show("User added successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -225,7 +238,7 @@ namespace bitcINTERFACE
                 // Update password
                 query = "UPDATE users SET username=@username, role=@role, passwordHash=@password WHERE id=@id";
                 cmd = new SqlCommand(query);
-                cmd.Parameters.AddWithValue("@password", textBox3.Text);
+                cmd.Parameters.AddWithValue("@password", PasswordHasher.HashPassword(textBox3.Text));
             }
             else
             {

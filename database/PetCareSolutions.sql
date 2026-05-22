@@ -111,19 +111,40 @@ END
 GO
 
 IF NOT EXISTS (SELECT 1 FROM dbo.users WHERE username = N'ADMIN1')
-    INSERT INTO dbo.users (username, passwordHash, role) VALUES (N'ADMIN1', N'1111', N'Administrator');
+    INSERT INTO dbo.users (username, passwordHash, role) VALUES (N'ADMIN1', N'PBKDF2$100000$AHfPALXwjosCKKYP6+5khw==$BoCZon3K15rwRwtCkwjTKzeZVBF8/0ovbnGNZnDh7NA=', N'Administrator');
 
 IF NOT EXISTS (SELECT 1 FROM dbo.users WHERE username = N'ADMIN')
-    INSERT INTO dbo.users (username, passwordHash, role) VALUES (N'ADMIN', N'ADMIN', N'Administrator');
+    INSERT INTO dbo.users (username, passwordHash, role) VALUES (N'ADMIN', N'PBKDF2$100000$vA3db7fzDSfte+b0CfBgRg==$9wnLfVA+vapgnekJS8/o0OfVuj+hr/i41HSeNjRqdSU=', N'Administrator');
 
 IF NOT EXISTS (SELECT 1 FROM dbo.users WHERE username = N'dr.ahmad')
-    INSERT INTO dbo.users (username, passwordHash, role) VALUES (N'dr.ahmad', N'password1', N'Veterinarian');
+    INSERT INTO dbo.users (username, passwordHash, role) VALUES (N'dr.ahmad', N'PBKDF2$100000$Vihx6XIfRvwuLkj4DZ1HBg==$YvPIH4Skv5wv7PuEMNOeTpMDIF1Ml5PdTfCIIJwIAmc=', N'Veterinarian');
 
 IF NOT EXISTS (SELECT 1 FROM dbo.users WHERE username = N'dr.fatima')
-    INSERT INTO dbo.users (username, passwordHash, role) VALUES (N'dr.fatima', N'password2', N'Veterinarian');
+    INSERT INTO dbo.users (username, passwordHash, role) VALUES (N'dr.fatima', N'PBKDF2$100000$DI2NhHMJbUwDIJkTWd4Aag==$Us9InvpXVgHr67NoLXRZrEpdRfQ5+yp3GMYcFHLft0E=', N'Veterinarian');
 
 IF NOT EXISTS (SELECT 1 FROM dbo.users WHERE username = N'sara.reception')
-    INSERT INTO dbo.users (username, passwordHash, role) VALUES (N'sara.reception', N'password3', N'Receptionist');
+    INSERT INTO dbo.users (username, passwordHash, role) VALUES (N'sara.reception', N'PBKDF2$100000$YwdwuZBAf5vQv1anTFP3ZA==$SkiKOJC/XrbVYAb6OKwNgTpBSnX9/pAH2LrOMrYoJHw=', N'Receptionist');
+GO
+
+UPDATE dbo.users
+SET passwordHash = N'PBKDF2$100000$AHfPALXwjosCKKYP6+5khw==$BoCZon3K15rwRwtCkwjTKzeZVBF8/0ovbnGNZnDh7NA='
+WHERE username = N'ADMIN1' AND passwordHash = N'1111';
+
+UPDATE dbo.users
+SET passwordHash = N'PBKDF2$100000$vA3db7fzDSfte+b0CfBgRg==$9wnLfVA+vapgnekJS8/o0OfVuj+hr/i41HSeNjRqdSU='
+WHERE username = N'ADMIN' AND passwordHash = N'ADMIN';
+
+UPDATE dbo.users
+SET passwordHash = N'PBKDF2$100000$Vihx6XIfRvwuLkj4DZ1HBg==$YvPIH4Skv5wv7PuEMNOeTpMDIF1Ml5PdTfCIIJwIAmc='
+WHERE username = N'dr.ahmad' AND passwordHash = N'password1';
+
+UPDATE dbo.users
+SET passwordHash = N'PBKDF2$100000$DI2NhHMJbUwDIJkTWd4Aag==$Us9InvpXVgHr67NoLXRZrEpdRfQ5+yp3GMYcFHLft0E='
+WHERE username = N'dr.fatima' AND passwordHash = N'password2';
+
+UPDATE dbo.users
+SET passwordHash = N'PBKDF2$100000$YwdwuZBAf5vQv1anTFP3ZA==$SkiKOJC/XrbVYAb6OKwNgTpBSnX9/pAH2LrOMrYoJHw='
+WHERE username = N'sara.reception' AND passwordHash = N'password3';
 GO
 
 IF NOT EXISTS (SELECT 1 FROM dbo.owners WHERE email = N'sami.k@example.com')

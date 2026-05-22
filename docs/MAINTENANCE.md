@@ -12,9 +12,9 @@ This project was cleaned so it can be reopened and released with less friction.
 - Rebuilt the database script into a clean schema and seed script without destructive sample deletes.
 - Rewrote project documentation with clear build and database setup steps.
 - Reorganized folders into `src`, `database`, and `docs` with professional project names.
+- Added PBKDF2 password hashing for clinic users, including automatic upgrade of legacy plain-text passwords after successful login.
 
 ## Still Recommended
 
-- Replace legacy plain-text password comparison with real password hashing.
 - Add a small logging layer instead of showing raw database exception messages to users.
 - Add tests around booking validation and appointment conflict checks if the project is developed further.
