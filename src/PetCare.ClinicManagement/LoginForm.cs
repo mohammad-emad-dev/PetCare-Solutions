@@ -17,7 +17,6 @@ namespace bitcINTERFACE
     /// </summary>
     public partial class LoginForm : Form
     {
-        private string connectionString = DatabaseConfig.ConnectionString;
 
         // ✅ Improvement 2: Rate limiting to prevent brute force attacks
         private int _failedLoginAttempts = 0;
@@ -125,7 +124,7 @@ namespace bitcINTERFACE
                 // ✅ Improvement 5: Async database operation for better UI responsiveness
                 await Task.Run(() =>
                 {
-                    using (SqlConnection conn = new SqlConnection(connectionString))
+                    using (SqlConnection conn = Database.CreateConnection())
                     {
                         // SQL query to find the user
                         string query = "SELECT id, passwordHash, role FROM users WHERE username = @username";

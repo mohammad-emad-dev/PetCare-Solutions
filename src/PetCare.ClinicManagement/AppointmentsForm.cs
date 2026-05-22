@@ -13,7 +13,6 @@ namespace bitcINTERFACE
 {
     public partial class AppointmentsForm : Form
     {
-        private string connectionString = DatabaseConfig.ConnectionString;
 
         // This variable will hold the ID of the currently selected appointment
         private int? selectedAppointmentId = null;
@@ -38,43 +37,32 @@ namespace bitcINTERFACE
         }
         private void LoadAppointments()
         {
-            using (SqlConnection conn = new SqlConnection(connectionString))
+            try
             {
-                try
-                {
-                    string query = "SELECT * FROM appointments";
-                    SqlDataAdapter adapter = new SqlDataAdapter(query, conn);
-                    DataTable dt = new DataTable();
-                    adapter.Fill(dt);
-                    dataGridView1.DataSource = dt;
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Failed to load appointments: " + ex.Message);
-                }
+                string query = "SELECT * FROM appointments";
+                dataGridView1.DataSource = Database.FillDataTable(query);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Failed to load appointments: " + ex.Message);
             }
         }
 
         // Method to load veterinarians into their ComboBox (comboBox2)
         private void LoadVetsComboBox()
         {
-            using (SqlConnection conn = new SqlConnection(connectionString))
+            try
             {
-                try
-                {
-                    string query = "SELECT id, name FROM veterinarians";
-                    SqlDataAdapter adapter = new SqlDataAdapter(query, conn);
-                    DataTable dt = new DataTable();
-                    adapter.Fill(dt);
+                string query = "SELECT id, name FROM veterinarians";
+                DataTable dt = Database.FillDataTable(query);
 
-                    comboBox2.DataSource = dt;
-                    comboBox2.DisplayMember = "name";
-                    comboBox2.ValueMember = "id";
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Failed to load veterinarians: " + ex.Message);
-                }
+                comboBox2.DataSource = dt;
+                comboBox2.DisplayMember = "name";
+                comboBox2.ValueMember = "id";
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Failed to load veterinarians: " + ex.Message);
             }
         }
         private void LoadPetsComboBox()
@@ -197,7 +185,7 @@ namespace bitcINTERFACE
 
             string query = "INSERT INTO appointments (appointmentDate, appointmentTime, typeOfService, status, petId, vetId) VALUES (@appDate, @appTime, @service, @status, @petId, @vetId)";
 
-            using (SqlConnection conn = new SqlConnection(connectionString))
+            using (SqlConnection conn = Database.CreateConnection())
             {
                 try
                 {
@@ -254,7 +242,7 @@ namespace bitcINTERFACE
             }
 
             string query = "DELETE FROM appointments WHERE id = @id";
-            using (SqlConnection conn = new SqlConnection(connectionString))
+            using (SqlConnection conn = Database.CreateConnection())
             {
                 using (SqlCommand cmd = new SqlCommand(query, conn))
                 {
@@ -286,7 +274,7 @@ namespace bitcINTERFACE
 
             string query = "UPDATE appointments SET appointmentDate=@appDate, appointmentTime=@appTime, typeOfService=@service, status=@status, petId=@petId, vetId=@vetId WHERE id=@id";
 
-            using (SqlConnection conn = new SqlConnection(connectionString))
+            using (SqlConnection conn = Database.CreateConnection())
             {
                 using (SqlCommand cmd = new SqlCommand(query, conn))
                 {

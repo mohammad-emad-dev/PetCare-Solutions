@@ -13,7 +13,6 @@ namespace BookingRequests_System
     /// </summary>
     public partial class OwnerLoginForm : Form
     {
-        private readonly string connectionString = DatabaseConfig.ConnectionString;
 
         // ✅ Improvement 2: Rate limiting to prevent brute force attacks
         private int _failedLoginAttempts = 0;
@@ -114,7 +113,7 @@ namespace BookingRequests_System
                 // ✅ Improvement 5: Async database operation for better UI responsiveness
                 await System.Threading.Tasks.Task.Run(() =>
                 {
-                    using (SqlConnection conn = new SqlConnection(connectionString))
+                    using (SqlConnection conn = Database.CreateConnection())
                     {
                         string query = "SELECT id FROM owners WHERE phoneNumber = @phone";
                         using (SqlCommand cmd = new SqlCommand(query, conn))

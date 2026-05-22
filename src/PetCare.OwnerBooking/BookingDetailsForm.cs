@@ -11,7 +11,6 @@ namespace BookingRequests_System
     /// </summary>
     public partial class BookingDetailsForm : Form
     {
-        private readonly string connectionString = DatabaseConfig.ConnectionString;
 
         private readonly int currentOwnerId;
 
@@ -57,44 +56,30 @@ namespace BookingRequests_System
 
                 await System.Threading.Tasks.Task.Run(() =>
                 {
-                    using (SqlConnection conn = new SqlConnection(connectionString))
+                    // ✅ Improvement 3: Optimized query with explicit column selection
+                    string query = "SELECT id, name FROM pets WHERE ownerId = @ownerId ORDER BY name";
+                    DataTable pets = Database.FillDataTable(
+                        query,
+                        parameters => parameters.Add("@ownerId", SqlDbType.Int).Value = currentOwnerId);
+
+                    this.Invoke(new Action(() =>
                     {
-                        // ✅ Improvement 3: Optimized query with explicit column selection
-                        string query = "SELECT id, name FROM pets WHERE ownerId = @ownerId ORDER BY name";
+                        comboBox1.DataSource = null;
+                        comboBox1.Items.Clear();
 
-                        using (SqlCommand cmd = new SqlCommand(query, conn))
+                        if (pets.Rows.Count > 0)
                         {
-                            // ✅ Improvement 4: Explicit parameter type for SQL injection prevention
-                            cmd.Parameters.Add("@ownerId", SqlDbType.Int).Value = currentOwnerId;
-
-                            conn.Open();
-
-                            using (SqlDataReader reader = cmd.ExecuteReader())
-                            {
-                                var pets = new DataTable();
-                                pets.Load(reader);
-
-                                this.Invoke(new Action(() =>
-                                {
-                                    comboBox1.DataSource = null;
-                                    comboBox1.Items.Clear();
-
-                                    if (pets.Rows.Count > 0)
-                                    {
-                                        comboBox1.DataSource = pets;
-                                        comboBox1.DisplayMember = "name";
-                                        comboBox1.ValueMember = "id";
-                                    }
-                                    else
-                                    {
-                                        comboBox1.Items.Add("No pets registered");
-                                        comboBox1.SelectedIndex = 0;
-                                        comboBox1.Enabled = false;
-                                    }
-                                }));
-                            }
+                            comboBox1.DataSource = pets;
+                            comboBox1.DisplayMember = "name";
+                            comboBox1.ValueMember = "id";
                         }
-                    }
+                        else
+                        {
+                            comboBox1.Items.Add("No pets registered");
+                            comboBox1.SelectedIndex = 0;
+                            comboBox1.Enabled = false;
+                        }
+                    }));
                 });
             }
             catch (Exception ex)
@@ -165,7 +150,7 @@ namespace BookingRequests_System
         {
             return await System.Threading.Tasks.Task.Run(() =>
             {
-                using (SqlConnection conn = new SqlConnection(connectionString))
+                using (SqlConnection conn = Database.CreateConnection())
                 {
                     // ✅ Improvement 7: Check for duplicate bookings
                     string query = @"SELECT COUNT(*) FROM BookingRequests
@@ -220,7 +205,7 @@ namespace BookingRequests_System
                     string query = @"INSERT INTO BookingRequests (OwnerID, PetID, RequestedDate, RequestedTime, Status)
                                     VALUES (@ownerId, @petId, @reqDate, @reqTime, 'Pending')";
 
-                    using (SqlConnection conn = new SqlConnection(connectionString))
+                    using (SqlConnection conn = Database.CreateConnection())
                     {
                         using (SqlCommand cmd = new SqlCommand(query, conn))
                         {

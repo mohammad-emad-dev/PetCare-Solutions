@@ -13,7 +13,6 @@ namespace bitcINTERFACE
 {
     public partial class PetRegistrationForm : Form
     {
-        private string connectionString = DatabaseConfig.ConnectionString;
         private int? selectedPetId = null; // To store the ID of the selected pet
 
 
@@ -32,20 +31,14 @@ namespace bitcINTERFACE
 
         private void LoadPets()
         {
-            using (SqlConnection conn = new SqlConnection(connectionString))
+            try
             {
-                try
-                {
-                    string query = "SELECT * FROM pets";
-                    SqlDataAdapter adapter = new SqlDataAdapter(query, conn);
-                    DataTable dt = new DataTable();
-                    adapter.Fill(dt);
-                    dataGridView1.DataSource = dt;
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Failed to load pets' data: " + ex.Message);
-                }
+                string query = "SELECT * FROM pets";
+                dataGridView1.DataSource = Database.FillDataTable(query);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Failed to load pets' data: " + ex.Message);
             }
         }
 
@@ -84,7 +77,7 @@ namespace bitcINTERFACE
 
             string query = "INSERT INTO pets (name, species, breed, dateOfBirth, Gender, medicalNotes, ownerId) VALUES (@name, @species, @breed, @dateOfBirth, @gender, @medicalNotes, @ownerId)";
 
-            using (SqlConnection conn = new SqlConnection(connectionString))
+            using (SqlConnection conn = Database.CreateConnection())
             {
                 using (SqlCommand cmd = new SqlCommand(query, conn))
                 {
@@ -125,7 +118,7 @@ namespace bitcINTERFACE
                 return;
             }
 
-            using (SqlConnection conn = new SqlConnection(connectionString))
+            using (SqlConnection conn = Database.CreateConnection())
             {
                 try
                 {
@@ -171,7 +164,7 @@ namespace bitcINTERFACE
             // The UPDATE query now includes medicalNotes
             string query = "UPDATE pets SET name=@name, species=@species, breed=@breed, dateOfBirth=@dateOfBirth, Gender=@gender, medicalNotes=@medicalNotes, ownerId=@ownerId WHERE id=@petId";
 
-            using (SqlConnection conn = new SqlConnection(connectionString))
+            using (SqlConnection conn = Database.CreateConnection())
             {
                 using (SqlCommand cmd = new SqlCommand(query, conn))
                 {

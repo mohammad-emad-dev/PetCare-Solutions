@@ -15,7 +15,6 @@ namespace bitcINTERFACE
 
     public partial class VeterinarianRegistrationForm : Form
     {
-        private string connectionString = DatabaseConfig.ConnectionString;
         private int? selectedVetId = null;
         public VeterinarianRegistrationForm()
         {
@@ -29,20 +28,14 @@ namespace bitcINTERFACE
         }
         private void LoadVeterinarians()
         {
-            using (SqlConnection conn = new SqlConnection(connectionString))
+            try
             {
-                try
-                {
-                    string query = "SELECT * FROM veterinarians";
-                    SqlDataAdapter adapter = new SqlDataAdapter(query, conn);
-                    DataTable dt = new DataTable();
-                    adapter.Fill(dt);
-                    dataGridView1.DataSource = dt;
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Failed to load veterinarians' data: " + ex.Message);
-                }
+                string query = "SELECT * FROM veterinarians";
+                dataGridView1.DataSource = Database.FillDataTable(query);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Failed to load veterinarians' data: " + ex.Message);
             }
         }
 
@@ -98,7 +91,7 @@ namespace bitcINTERFACE
 
             string query = "INSERT INTO veterinarians (name, specialty, contactInfo, userId) VALUES (@name, @specialty, @contactInfo, @userId)";
 
-            using (SqlConnection conn = new SqlConnection(connectionString))
+            using (SqlConnection conn = Database.CreateConnection())
             {
                 try
                 {
@@ -152,7 +145,7 @@ namespace bitcINTERFACE
                 return;
             }
 
-            using (SqlConnection conn = new SqlConnection(connectionString))
+            using (SqlConnection conn = Database.CreateConnection())
             {
                 try
                 {
@@ -203,7 +196,7 @@ namespace bitcINTERFACE
 
             string query = "UPDATE veterinarians SET name=@name, specialty=@specialty, contactInfo=@contactInfo, userId=@userId WHERE id=@id";
 
-            using (SqlConnection conn = new SqlConnection(connectionString))
+            using (SqlConnection conn = Database.CreateConnection())
             {
                 using (SqlCommand cmd = new SqlCommand(query, conn))
                 {

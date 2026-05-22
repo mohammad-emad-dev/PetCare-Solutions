@@ -13,7 +13,6 @@ namespace bitcINTERFACE
 {
     public partial class UsersForm : Form
     {
-        private string connectionString = DatabaseConfig.ConnectionString;
         private int? selectedUserId = null;
         private string passwordPlaceholder = "Enter new password to change";
         public UsersForm()
@@ -56,21 +55,15 @@ namespace bitcINTERFACE
         // A reusable method to load or refresh user data
         private void LoadUsers()
         {
-            using (SqlConnection conn = new SqlConnection(connectionString))
+            try
             {
-                try
-                {
-                    string query = "SELECT id, username, role, dateCreated FROM users";
-                    SqlDataAdapter adapter = new SqlDataAdapter(query, conn);
-                    DataTable dt = new DataTable();
-                    adapter.Fill(dt);
-                    dataGridView1.DataSource = dt;
-                    HidePasswordColumn();
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Failed to load users' data: " + ex.Message);
-                }
+                string query = "SELECT id, username, role, dateCreated FROM users";
+                dataGridView1.DataSource = Database.FillDataTable(query);
+                HidePasswordColumn();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Failed to load users' data: " + ex.Message);
             }
         }
 
@@ -145,7 +138,7 @@ namespace bitcINTERFACE
 
             // ... (rest of the insert code is the same as before)
             string query = "INSERT INTO users (username, passwordHash, role) VALUES (@username, @password, @role)";
-            using (SqlConnection conn = new SqlConnection(connectionString))
+            using (SqlConnection conn = Database.CreateConnection())
             {
                 // ... (try-catch and command execution logic remains the same)
                 try
@@ -190,7 +183,7 @@ namespace bitcINTERFACE
             {
                 return;
             }
-            using (SqlConnection conn = new SqlConnection(connectionString))
+            using (SqlConnection conn = Database.CreateConnection())
             {
                 try
                 {
@@ -251,7 +244,7 @@ namespace bitcINTERFACE
             cmd.Parameters.AddWithValue("@username", textBox2.Text);
             cmd.Parameters.AddWithValue("@role", comboBox1.SelectedItem.ToString());
 
-            using (SqlConnection conn = new SqlConnection(connectionString))
+            using (SqlConnection conn = Database.CreateConnection())
             {
                 // ... (rest of update logic is the same)
                 cmd.Connection = conn;
