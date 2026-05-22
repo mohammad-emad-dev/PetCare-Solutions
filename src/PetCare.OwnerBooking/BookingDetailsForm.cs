@@ -9,17 +9,17 @@ namespace BookingRequests_System
     /// Form for submitting pet care booking requests.
     /// Implements security best practices and performance optimizations.
     /// </summary>
-    public partial class Booking_details : Form
+    public partial class BookingDetailsForm : Form
     {
         private readonly string connectionString = DatabaseConfig.ConnectionString;
-        
+
         private readonly int currentOwnerId;
 
         /// <summary>
         /// Initializes the booking details form with the owner's ID.
         /// </summary>
         /// <param name="ownerId">The ID of the logged-in pet owner.</param>
-        public Booking_details(int ownerId)
+        public BookingDetailsForm(int ownerId)
         {
             InitializeComponent();
             currentOwnerId = ownerId;
@@ -28,7 +28,7 @@ namespace BookingRequests_System
         /// <summary>
         /// Handles form load event - configures controls and loads pet data.
         /// </summary>
-        private async void Booking_details_Load(object sender, EventArgs e)
+        private async void BookingDetailsForm_Load(object sender, EventArgs e)
         {
             // Configure the time picker format
             dateTimePicker2.Format = DateTimePickerFormat.Custom;
@@ -61,24 +61,24 @@ namespace BookingRequests_System
                     {
                         // ✅ Improvement 3: Optimized query with explicit column selection
                         string query = "SELECT id, name FROM pets WHERE ownerId = @ownerId ORDER BY name";
-                        
+
                         using (SqlCommand cmd = new SqlCommand(query, conn))
                         {
                             // ✅ Improvement 4: Explicit parameter type for SQL injection prevention
                             cmd.Parameters.Add("@ownerId", SqlDbType.Int).Value = currentOwnerId;
-                            
+
                             conn.Open();
-                            
+
                             using (SqlDataReader reader = cmd.ExecuteReader())
                             {
                                 var pets = new DataTable();
                                 pets.Load(reader);
-                                
+
                                 this.Invoke(new Action(() =>
                                 {
                                     comboBox1.DataSource = null;
                                     comboBox1.Items.Clear();
-                                    
+
                                     if (pets.Rows.Count > 0)
                                     {
                                         comboBox1.DataSource = pets;
@@ -102,7 +102,7 @@ namespace BookingRequests_System
                 // ✅ Improvement 5: Secure error handling
                 MessageBox.Show("Failed to load your pets. Please try again later.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 System.Diagnostics.Debug.WriteLine($"Load pets error: {ex.Message}");
-                
+
                 this.Invoke(new Action(() =>
                 {
                     comboBox1.Items.Clear();
@@ -168,16 +168,16 @@ namespace BookingRequests_System
                 using (SqlConnection conn = new SqlConnection(connectionString))
                 {
                     // ✅ Improvement 7: Check for duplicate bookings
-                    string query = @"SELECT COUNT(*) FROM BookingRequests 
-                                    WHERE PetID = @petId AND RequestedDate = @reqDate AND RequestedTime = @reqTime 
+                    string query = @"SELECT COUNT(*) FROM BookingRequests
+                                    WHERE PetID = @petId AND RequestedDate = @reqDate AND RequestedTime = @reqTime
                                     AND Status IN ('Pending', 'Confirmed')";
-                    
+
                     using (SqlCommand cmd = new SqlCommand(query, conn))
                     {
                         cmd.Parameters.Add("@petId", SqlDbType.Int).Value = petId;
                         cmd.Parameters.Add("@reqDate", SqlDbType.Date).Value = date;
                         cmd.Parameters.Add("@reqTime", SqlDbType.Time).Value = time;
-                        
+
                         conn.Open();
                         int count = (int)cmd.ExecuteScalar();
                         return count > 0;
@@ -217,7 +217,7 @@ namespace BookingRequests_System
                 // ✅ Improvement 10: Async database operation
                 await System.Threading.Tasks.Task.Run(() =>
                 {
-                    string query = @"INSERT INTO BookingRequests (OwnerID, PetID, RequestedDate, RequestedTime, Status) 
+                    string query = @"INSERT INTO BookingRequests (OwnerID, PetID, RequestedDate, RequestedTime, Status)
                                     VALUES (@ownerId, @petId, @reqDate, @reqTime, 'Pending')";
 
                     using (SqlConnection conn = new SqlConnection(connectionString))

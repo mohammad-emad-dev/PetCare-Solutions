@@ -1,6 +1,6 @@
 ﻿namespace bitcINTERFACE
 {
-    partial class Users_Form
+    partial class UsersForm
     {
         /// <summary>
         /// Required designer variable.
@@ -255,7 +255,7 @@
             this.button3.UseVisualStyleBackColor = true;
             this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
-            // Users_Form
+            // UsersForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -274,9 +274,9 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.label1);
-            this.Name = "Users_Form";
-            this.Text = "Users_Form";
-            this.Load += new System.EventHandler(this.Users_Form_Load);
+            this.Name = "UsersForm";
+            this.Text = "Users";
+            this.Load += new System.EventHandler(this.UsersForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.usersBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.petCareSolutionsDataSet)).EndInit();

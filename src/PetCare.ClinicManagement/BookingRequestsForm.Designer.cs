@@ -1,6 +1,6 @@
 ﻿namespace bitcINTERFACE
 {
-    partial class BookingRequests
+    partial class BookingRequestsForm
     {
         /// <summary>
         /// Required designer variable.
@@ -229,9 +229,9 @@
             this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.comboBox1);
             this.Controls.Add(this.label1);
-            this.Name = "BookingRequests";
-            this.Text = "BookingRequests";
-            this.Load += new System.EventHandler(this.BookingRequests_Load);
+            this.Name = "BookingRequestsForm";
+            this.Text = "Booking Requests";
+            this.Load += new System.EventHandler(this.BookingRequestsForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.bookingRequestsBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.petCareSolutionsDataSet)).EndInit();

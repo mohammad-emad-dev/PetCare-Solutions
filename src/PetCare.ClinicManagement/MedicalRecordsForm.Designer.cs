@@ -1,6 +1,6 @@
 ﻿namespace bitcINTERFACE
 {
-    partial class medical_records
+    partial class MedicalRecordsForm
     {
         /// <summary>
         /// Required designer variable.
@@ -313,7 +313,7 @@
             this.textBox2.TabIndex = 34;
             this.textBox2.TextChanged += new System.EventHandler(this.textBox2_TextChanged);
             // 
-            // medical_records
+            // MedicalRecordsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -336,9 +336,9 @@
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
-            this.Name = "medical_records";
-            this.Text = "medical_records";
-            this.Load += new System.EventHandler(this.medical_records_Load);
+            this.Name = "MedicalRecordsForm";
+            this.Text = "Medical Records";
+            this.Load += new System.EventHandler(this.MedicalRecordsForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.medicalRecordsBindingSource1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.medicalRecordsBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();

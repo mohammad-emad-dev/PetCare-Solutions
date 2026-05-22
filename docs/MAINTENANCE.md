@@ -13,6 +13,7 @@ This project was cleaned so it can be reopened and released with less friction.
 - Rewrote project documentation with clear build and database setup steps.
 - Reorganized folders into `src`, `database`, and `docs` with professional project names.
 - Added PBKDF2 password hashing for clinic users, including automatic upgrade of legacy plain-text passwords after successful login.
+- Renamed Windows Forms classes and files to consistent `Form`-suffixed names while preserving Designer resources.
 
 ## Still Recommended
 

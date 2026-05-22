@@ -1,6 +1,6 @@
 ﻿namespace BookingRequests_System
 {
-    partial class Booking_details
+    partial class BookingDetailsForm
     {
         /// <summary>
         /// Required designer variable.
@@ -103,7 +103,7 @@
             this.button1.UseVisualStyleBackColor = false;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
-            // Booking_details
+            // BookingDetailsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -116,9 +116,9 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.comboBox1);
             this.Controls.Add(this.label1);
-            this.Name = "Booking_details";
-            this.Text = "Booking_details";
-            this.Load += new System.EventHandler(this.Booking_details_Load);
+            this.Name = "BookingDetailsForm";
+            this.Text = "Booking Details";
+            this.Load += new System.EventHandler(this.BookingDetailsForm_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

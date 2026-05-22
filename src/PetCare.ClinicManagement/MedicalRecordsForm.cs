@@ -12,17 +12,17 @@ using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace bitcINTERFACE
 {
-    public partial class medical_records : Form
+    public partial class MedicalRecordsForm : Form
     {
         private string connectionString = DatabaseConfig.ConnectionString;
         private Tuple<int, int> selectedRecordId = null; // (petId, recordId)
 
-        public medical_records()
+        public MedicalRecordsForm()
         {
             InitializeComponent();
         }
 
-        private void medical_records_Load(object sender, EventArgs e)
+        private void MedicalRecordsForm_Load(object sender, EventArgs e)
         {
             LoadMedicalRecords();
             LoadPetsComboBox();
@@ -35,7 +35,7 @@ namespace bitcINTERFACE
             {
                 try
                 {
-                    string query = "SELECT * FROM medical_records";
+                    string query = "SELECT * FROM MedicalRecordsForm";
                     SqlDataAdapter adapter = new SqlDataAdapter(query, conn);
                     DataTable dt = new DataTable();
                     adapter.Fill(dt);
@@ -189,7 +189,7 @@ namespace bitcINTERFACE
             if (selectedRecordId == null)
             {
                 // INSERT LOGIC
-                string query = "INSERT INTO medical_records (petId, diagnosis, prescriptions, vaccinationsGiven, followupInstructions, vetId) VALUES (@petId, @diagnosis, @prescriptions, @vaccinations, @instructions, @vetId)";
+                string query = "INSERT INTO MedicalRecordsForm (petId, diagnosis, prescriptions, vaccinationsGiven, followupInstructions, vetId) VALUES (@petId, @diagnosis, @prescriptions, @vaccinations, @instructions, @vetId)";
                 using (SqlConnection conn = new SqlConnection(connectionString))
                 {
                     using (SqlCommand cmd = new SqlCommand(query, conn))
@@ -217,7 +217,7 @@ namespace bitcINTERFACE
             else
             {
                 // UPDATE LOGIC
-                string query = "UPDATE medical_records SET petId=@newPetId, diagnosis=@diagnosis, prescriptions=@prescriptions, vaccinationsGiven=@vaccinations, followupInstructions=@instructions, vetId=@vetId WHERE petId=@oldPetId AND id=@recordId";
+                string query = "UPDATE MedicalRecordsForm SET petId=@newPetId, diagnosis=@diagnosis, prescriptions=@prescriptions, vaccinationsGiven=@vaccinations, followupInstructions=@instructions, vetId=@vetId WHERE petId=@oldPetId AND id=@recordId";
                 using (SqlConnection conn = new SqlConnection(connectionString))
                 {
                     using (SqlCommand cmd = new SqlCommand(query, conn))

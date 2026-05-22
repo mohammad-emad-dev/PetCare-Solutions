@@ -1,6 +1,6 @@
 ﻿namespace BookingRequests_System
 {
-    partial class LOGIN_ONWERS
+    partial class OwnerLoginForm
     {
         /// <summary>
         /// Required designer variable.
@@ -79,7 +79,7 @@
             this.label1.TabIndex = 4;
             this.label1.Text = "Enter PhoneNumber";
             // 
-            // LOGIN_ONWERS
+            // OwnerLoginForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -89,9 +89,9 @@
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
-            this.Name = "LOGIN_ONWERS";
-            this.Text = "LOGIN_ONWERS";
-            this.Load += new System.EventHandler(this.LOGIN_ONWERS_Load);
+            this.Name = "OwnerLoginForm";
+            this.Text = "Owner Login";
+            this.Load += new System.EventHandler(this.OwnerLoginForm_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

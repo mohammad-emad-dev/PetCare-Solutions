@@ -47,89 +47,89 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="appointments.cs">
+    <Compile Include="AppointmentsForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="appointments.Designer.cs">
-      <DependentUpon>appointments.cs</DependentUpon>
+    <Compile Include="AppointmentsForm.Designer.cs">
+      <DependentUpon>AppointmentsForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="BookingRequests.cs">
+    <Compile Include="BookingRequestsForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="BookingRequests.Designer.cs">
-      <DependentUpon>BookingRequests.cs</DependentUpon>
+    <Compile Include="BookingRequestsForm.Designer.cs">
+      <DependentUpon>BookingRequestsForm.cs</DependentUpon>
     </Compile>
     <Compile Include="DatabaseConfig.cs" />
-    <Compile Include="Dashboard.cs">
+    <Compile Include="DashboardForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Dashboard.Designer.cs">
-      <DependentUpon>Dashboard.cs</DependentUpon>
+    <Compile Include="DashboardForm.Designer.cs">
+      <DependentUpon>DashboardForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="login.cs">
+    <Compile Include="LoginForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="login.Designer.cs">
-      <DependentUpon>login.cs</DependentUpon>
+    <Compile Include="LoginForm.Designer.cs">
+      <DependentUpon>LoginForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="medical_records.cs">
+    <Compile Include="MedicalRecordsForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="medical_records.Designer.cs">
-      <DependentUpon>medical_records.cs</DependentUpon>
+    <Compile Include="MedicalRecordsForm.Designer.cs">
+      <DependentUpon>MedicalRecordsForm.cs</DependentUpon>
     </Compile>
     <Compile Include="PasswordHasher.cs" />
-    <Compile Include="Owner registration.cs">
+    <Compile Include="OwnerRegistrationForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Owner registration.Designer.cs">
-      <DependentUpon>Owner registration.cs</DependentUpon>
+    <Compile Include="OwnerRegistrationForm.Designer.cs">
+      <DependentUpon>OwnerRegistrationForm.cs</DependentUpon>
     </Compile>
     <Compile Include="PetCareSolutionsDataSet.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>PetCareSolutionsDataSet.xsd</DependentUpon>
     </Compile>
-    <Compile Include="Pets registration.cs">
+    <Compile Include="PetRegistrationForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Pets registration.Designer.cs">
-      <DependentUpon>Pets registration.cs</DependentUpon>
+    <Compile Include="PetRegistrationForm.Designer.cs">
+      <DependentUpon>PetRegistrationForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Users Form.cs">
+    <Compile Include="UsersForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Users Form.Designer.cs">
-      <DependentUpon>Users Form.cs</DependentUpon>
+    <Compile Include="UsersForm.Designer.cs">
+      <DependentUpon>UsersForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Veterinarians Registration.cs">
+    <Compile Include="VeterinarianRegistrationForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Veterinarians Registration.Designer.cs">
-      <DependentUpon>Veterinarians Registration.cs</DependentUpon>
+    <Compile Include="VeterinarianRegistrationForm.Designer.cs">
+      <DependentUpon>VeterinarianRegistrationForm.cs</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="appointments.resx">
-      <DependentUpon>appointments.cs</DependentUpon>
+    <EmbeddedResource Include="AppointmentsForm.resx">
+      <DependentUpon>AppointmentsForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="BookingRequests.resx">
-      <DependentUpon>BookingRequests.cs</DependentUpon>
+    <EmbeddedResource Include="BookingRequestsForm.resx">
+      <DependentUpon>BookingRequestsForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Dashboard.resx">
-      <DependentUpon>Dashboard.cs</DependentUpon>
+    <EmbeddedResource Include="DashboardForm.resx">
+      <DependentUpon>DashboardForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="login.resx">
-      <DependentUpon>login.cs</DependentUpon>
+    <EmbeddedResource Include="LoginForm.resx">
+      <DependentUpon>LoginForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="medical_records.resx">
-      <DependentUpon>medical_records.cs</DependentUpon>
+    <EmbeddedResource Include="MedicalRecordsForm.resx">
+      <DependentUpon>MedicalRecordsForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Owner registration.resx">
-      <DependentUpon>Owner registration.cs</DependentUpon>
+    <EmbeddedResource Include="OwnerRegistrationForm.resx">
+      <DependentUpon>OwnerRegistrationForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Pets registration.resx">
-      <DependentUpon>Pets registration.cs</DependentUpon>
+    <EmbeddedResource Include="PetRegistrationForm.resx">
+      <DependentUpon>PetRegistrationForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -141,11 +141,11 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <EmbeddedResource Include="Users Form.resx">
-      <DependentUpon>Users Form.cs</DependentUpon>
+    <EmbeddedResource Include="UsersForm.resx">
+      <DependentUpon>UsersForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Veterinarians Registration.resx">
-      <DependentUpon>Veterinarians Registration.cs</DependentUpon>
+    <EmbeddedResource Include="VeterinarianRegistrationForm.resx">
+      <DependentUpon>VeterinarianRegistrationForm.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="PetCareSolutionsDataSet.xsc">
       <DependentUpon>PetCareSolutionsDataSet.xsd</DependentUpon>
