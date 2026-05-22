@@ -13,7 +13,6 @@ namespace bitcINTERFACE
 {
     public partial class BookingRequestsForm : Form
     {
-        private string connectionString = DatabaseConfig.ConnectionString;
 
         // This will store the details of the currently selected request
         private DataGridViewRow selectedRequestRow = null;
@@ -34,45 +33,34 @@ namespace bitcINTERFACE
         }
         private void LoadBookingRequests(string status)
         {
-            using (SqlConnection conn = new SqlConnection(connectionString))
+            try
             {
-                try
-                {
-                    string query = "SELECT * FROM BookingRequests WHERE Status = @status";
-                    SqlDataAdapter adapter = new SqlDataAdapter(query, conn);
-                    adapter.SelectCommand.Parameters.AddWithValue("@status", status);
-
-                    DataTable dt = new DataTable();
-                    adapter.Fill(dt);
-                    dataGridView1.DataSource = dt;
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Failed to load booking requests: " + ex.Message);
-                }
+                string query = "SELECT * FROM BookingRequests WHERE Status = @status";
+                dataGridView1.DataSource = Database.FillDataTable(
+                    query,
+                    parameters => parameters.AddWithValue("@status", status));
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Failed to load booking requests: " + ex.Message);
             }
         }
 
         // Method to load veterinarians into comboBox2
         private void LoadVetsComboBox()
         {
-            using (SqlConnection conn = new SqlConnection(connectionString))
+            try
             {
-                try
-                {
-                    string query = "SELECT id, name FROM veterinarians";
-                    SqlDataAdapter adapter = new SqlDataAdapter(query, conn);
-                    DataTable dt = new DataTable();
-                    adapter.Fill(dt);
+                string query = "SELECT id, name FROM veterinarians";
+                DataTable dt = Database.FillDataTable(query);
 
-                    comboBox2.DataSource = dt;
-                    comboBox2.DisplayMember = "name";
-                    comboBox2.ValueMember = "id";
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Failed to load veterinarians: " + ex.Message);
-                }
+                comboBox2.DataSource = dt;
+                comboBox2.DisplayMember = "name";
+                comboBox2.ValueMember = "id";
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Failed to load veterinarians: " + ex.Message);
             }
         }
 
@@ -150,7 +138,7 @@ namespace bitcINTERFACE
             DateTime appDate = Convert.ToDateTime(selectedRequestRow.Cells["requestedDateDataGridViewTextBoxColumn"].Value);
             TimeSpan appTime = (TimeSpan)selectedRequestRow.Cells["requestedTimeDataGridViewTextBoxColumn"].Value;
 
-            using (SqlConnection conn = new SqlConnection(connectionString))
+            using (SqlConnection conn = Database.CreateConnection())
             {
                 conn.Open();
                 SqlTransaction transaction = conn.BeginTransaction(); // Start a transaction
@@ -222,7 +210,7 @@ namespace bitcINTERFACE
             int requestId = Convert.ToInt32(selectedRequestRow.Cells["requestIDDataGridViewTextBoxColumn"].Value);
 
             string query = "UPDATE BookingRequests SET Status = 'Rejected' WHERE RequestID = @reqId";
-            using (SqlConnection conn = new SqlConnection(connectionString))
+            using (SqlConnection conn = Database.CreateConnection())
             {
                 using (SqlCommand cmd = new SqlCommand(query, conn))
                 {

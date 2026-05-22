@@ -59,6 +59,7 @@
     <Compile Include="BookingRequestsForm.Designer.cs">
       <DependentUpon>BookingRequestsForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Database.cs" />
     <Compile Include="DatabaseConfig.cs" />
     <Compile Include="DashboardForm.cs">
       <SubType>Form</SubType>

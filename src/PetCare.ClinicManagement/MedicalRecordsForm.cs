@@ -14,7 +14,6 @@ namespace bitcINTERFACE
 {
     public partial class MedicalRecordsForm : Form
     {
-        private string connectionString = DatabaseConfig.ConnectionString;
         private Tuple<int, int> selectedRecordId = null; // (petId, recordId)
 
         public MedicalRecordsForm()
@@ -31,45 +30,34 @@ namespace bitcINTERFACE
 
         private void LoadMedicalRecords()
         {
-            using (SqlConnection conn = new SqlConnection(connectionString))
+            try
             {
-                try
-                {
-                    string query = "SELECT * FROM MedicalRecordsForm";
-                    SqlDataAdapter adapter = new SqlDataAdapter(query, conn);
-                    DataTable dt = new DataTable();
-                    adapter.Fill(dt);
-                    dataGridView1.DataSource = dt;
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Failed to load medical records: " + ex.Message);
-                }
+                string query = "SELECT * FROM medical_records";
+                dataGridView1.DataSource = Database.FillDataTable(query);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Failed to load medical records: " + ex.Message);
             }
         }
 
         // Method to load pet names into comboBox1
         private void LoadPetsComboBox()
         {
-            using (SqlConnection conn = new SqlConnection(connectionString))
+            try
             {
-                try
-                {
-                    string query = "SELECT id, name FROM pets";
-                    SqlDataAdapter adapter = new SqlDataAdapter(query, conn);
-                    DataTable dt = new DataTable();
-                    adapter.Fill(dt);
+                string query = "SELECT id, name FROM pets";
+                DataTable dt = Database.FillDataTable(query);
 
-                    comboBox1.DataSource = dt;
-                    comboBox1.DisplayMember = "name";
-                    comboBox1.ValueMember = "id";
-                    comboBox1.SelectedIndex = -1; // Start with no pet selected
-                    groupBox1.Controls.Clear(); // Clear the info box initially
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Failed to load pets: " + ex.Message);
-                }
+                comboBox1.DataSource = dt;
+                comboBox1.DisplayMember = "name";
+                comboBox1.ValueMember = "id";
+                comboBox1.SelectedIndex = -1; // Start with no pet selected
+                groupBox1.Controls.Clear(); // Clear the info box initially
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Failed to load pets: " + ex.Message);
             }
         }
 
@@ -105,7 +93,7 @@ namespace bitcINTERFACE
                 int selectedPetId = (int)comboBox1.SelectedValue;
 
                 // Fetch details for the selected pet from the database
-                using (SqlConnection conn = new SqlConnection(connectionString))
+                using (SqlConnection conn = Database.CreateConnection())
                 {
                     string query = "SELECT species, breed, Gender, dateOfBirth FROM pets WHERE id = @petId";
                     using (SqlCommand cmd = new SqlCommand(query, conn))
@@ -189,8 +177,8 @@ namespace bitcINTERFACE
             if (selectedRecordId == null)
             {
                 // INSERT LOGIC
-                string query = "INSERT INTO MedicalRecordsForm (petId, diagnosis, prescriptions, vaccinationsGiven, followupInstructions, vetId) VALUES (@petId, @diagnosis, @prescriptions, @vaccinations, @instructions, @vetId)";
-                using (SqlConnection conn = new SqlConnection(connectionString))
+                string query = "INSERT INTO medical_records (petId, diagnosis, prescriptions, vaccinationsGiven, followupInstructions, vetId) VALUES (@petId, @diagnosis, @prescriptions, @vaccinations, @instructions, @vetId)";
+                using (SqlConnection conn = Database.CreateConnection())
                 {
                     using (SqlCommand cmd = new SqlCommand(query, conn))
                     {
@@ -217,8 +205,8 @@ namespace bitcINTERFACE
             else
             {
                 // UPDATE LOGIC
-                string query = "UPDATE MedicalRecordsForm SET petId=@newPetId, diagnosis=@diagnosis, prescriptions=@prescriptions, vaccinationsGiven=@vaccinations, followupInstructions=@instructions, vetId=@vetId WHERE petId=@oldPetId AND id=@recordId";
-                using (SqlConnection conn = new SqlConnection(connectionString))
+                string query = "UPDATE medical_records SET petId=@newPetId, diagnosis=@diagnosis, prescriptions=@prescriptions, vaccinationsGiven=@vaccinations, followupInstructions=@instructions, vetId=@vetId WHERE petId=@oldPetId AND id=@recordId";
+                using (SqlConnection conn = Database.CreateConnection())
                 {
                     using (SqlCommand cmd = new SqlCommand(query, conn))
                     {

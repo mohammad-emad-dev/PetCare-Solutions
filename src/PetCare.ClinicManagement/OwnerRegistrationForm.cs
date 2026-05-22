@@ -13,7 +13,6 @@ namespace bitcINTERFACE
 {
     public partial class OwnerRegistrationForm : Form
     {
-        private string connectionString = DatabaseConfig.ConnectionString;
 
         // This variable will hold the ID of the currently selected owner for updates and deletes
         private int? selectedOwnerId = null;
@@ -31,20 +30,14 @@ namespace bitcINTERFACE
 
         private void LoadOwners()
         {
-            using (SqlConnection conn = new SqlConnection(connectionString))
+            try
             {
-                try
-                {
-                    string query = "SELECT * FROM owners";
-                    SqlDataAdapter adapter = new SqlDataAdapter(query, conn);
-                    DataTable dt = new DataTable();
-                    adapter.Fill(dt);
-                    dataGridView1.DataSource = dt;
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Failed to load owners' data: " + ex.Message);
-                }
+                string query = "SELECT * FROM owners";
+                dataGridView1.DataSource = Database.FillDataTable(query);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Failed to load owners' data: " + ex.Message);
             }
         }
 
@@ -89,7 +82,7 @@ namespace bitcINTERFACE
 
             string query = "INSERT INTO owners (firstName, lastName, phoneNumber, email, street, city) VALUES (@firstName, @lastName, @phoneNumber, @email, @street, @city)";
 
-            using (SqlConnection conn = new SqlConnection(connectionString))
+            using (SqlConnection conn = Database.CreateConnection())
             {
                 using (SqlCommand cmd = new SqlCommand(query, conn))
                 {
@@ -132,7 +125,7 @@ namespace bitcINTERFACE
                 return;
             }
 
-            using (SqlConnection conn = new SqlConnection(connectionString))
+            using (SqlConnection conn = Database.CreateConnection())
             {
                 try
                 {
@@ -194,7 +187,7 @@ namespace bitcINTERFACE
 
                 string query = "UPDATE owners SET firstName=@firstName, lastName=@lastName, phoneNumber=@phoneNumber, email=@email, street=@street, city=@city WHERE id=@id";
 
-                using (SqlConnection conn = new SqlConnection(connectionString))
+                using (SqlConnection conn = Database.CreateConnection())
                 {
                     using (SqlCommand cmd = new SqlCommand(query, conn))
                     {

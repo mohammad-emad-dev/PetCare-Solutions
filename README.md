@@ -74,5 +74,5 @@ Command-line build with Visual Studio MSBuild:
 ## Notes
 
 - Generated folders such as `.vs`, `bin`, and `obj` are intentionally ignored.
-- Connection strings are read through `DatabaseConfig` in each application.
+- Connection strings are read through `DatabaseConfig`; forms access SQL connections through the local `Database` helper in each application.
 - Clinic user passwords are stored in the `passwordHash` column using PBKDF2 hashes. Existing legacy plain-text passwords are upgraded automatically after a successful login.
