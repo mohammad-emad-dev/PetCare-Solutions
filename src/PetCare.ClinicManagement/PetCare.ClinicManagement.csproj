@@ -177,19 +177,10 @@
     <None Include="Resources\images.jpeg" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\workplace-with-blue-office-supplies_23-2147843328.jpg" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\workplace-with-blue-office-supplies_23-21478433281.jpg" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Resources\AAA.jpg" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\images %281%29.jpeg" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\images %282%29.jpeg" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\healthcare-and-medical-innovation-background-with-dots-and-lines-molecular-structure-and-hospital-cross-illustration-vector.jpg" />

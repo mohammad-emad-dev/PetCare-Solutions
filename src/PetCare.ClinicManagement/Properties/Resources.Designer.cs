@@ -104,16 +104,6 @@ namespace bitcINTERFACE.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap images__2_ {
-            get {
-                object obj = ResourceManager.GetObject("images (2)", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
         internal static System.Drawing.Bitmap pngtree_simple_medical_protection_prevention_and_control_prevention_hospital_bulletin_board_theme_image_1513799 {
             get {
                 object obj = ResourceManager.GetObject("pngtree-simple-medical-protection-prevention-and-control-prevention-hospital-bull" +
@@ -152,24 +142,5 @@ namespace bitcINTERFACE.Properties {
             }
         }
         
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap workplace_with_blue_office_supplies_23_2147843328 {
-            get {
-                object obj = ResourceManager.GetObject("workplace-with-blue-office-supplies_23-2147843328", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap workplace_with_blue_office_supplies_23_21478433281 {
-            get {
-                object obj = ResourceManager.GetObject("workplace-with-blue-office-supplies_23-21478433281", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
     }
 }
