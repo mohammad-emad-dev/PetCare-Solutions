@@ -11,6 +11,7 @@ This project was cleaned so it can be reopened and released with less friction.
 - Replaced unsupported WinForms icon usage with a supported warning icon.
 - Rebuilt the database script into a clean schema and seed script without destructive sample deletes.
 - Rewrote project documentation with clear build and database setup steps.
+- Reorganized folders into `src`, `database`, and `docs` with professional project names.
 
 ## Still Recommended
 
