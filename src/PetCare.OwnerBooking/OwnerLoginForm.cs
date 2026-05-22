@@ -11,7 +11,7 @@ namespace BookingRequests_System
     /// Login form for pet owners using phone number authentication.
     /// Implements security best practices and performance optimizations.
     /// </summary>
-    public partial class LOGIN_ONWERS : Form
+    public partial class OwnerLoginForm : Form
     {
         private readonly string connectionString = DatabaseConfig.ConnectionString;
 
@@ -21,7 +21,7 @@ namespace BookingRequests_System
         private const int MaxFailedAttempts = 5;
         private const int LockoutDurationMinutes = 15;
 
-        public LOGIN_ONWERS()
+        public OwnerLoginForm()
         {
             InitializeComponent();
             SetupPhoneValidation();
@@ -55,8 +55,8 @@ namespace BookingRequests_System
         /// </summary>
         private bool IsValidPhoneNumber(string phone)
         {
-            return !string.IsNullOrWhiteSpace(phone) && 
-                   phone.Length >= 10 && 
+            return !string.IsNullOrWhiteSpace(phone) &&
+                   phone.Length >= 10 &&
                    phone.Length <= 15 &&
                    long.TryParse(phone, out _);
         }
@@ -121,7 +121,7 @@ namespace BookingRequests_System
                         {
                             // ✅ Improvement 6: Explicit parameter type for SQL injection prevention
                             cmd.Parameters.Add("@phone", SqlDbType.NVarChar, 20).Value = textBox1.Text.Trim();
-                            
+
                             conn.Open();
                             object result = cmd.ExecuteScalar();
 
@@ -131,7 +131,7 @@ namespace BookingRequests_System
                                 int ownerId = Convert.ToInt32(result);
                                 this.Invoke(new Action(() =>
                                 {
-                                    Booking_details detailsForm = new Booking_details(ownerId);
+                                    BookingDetailsForm detailsForm = new BookingDetailsForm(ownerId);
                                     detailsForm.Show();
                                     this.Hide();
                                     _failedLoginAttempts = 0; // Reset on success
@@ -142,7 +142,7 @@ namespace BookingRequests_System
                                 // ✅ Improvement 7: Track failed attempts
                                 _failedLoginAttempts++;
                                 _lastFailedAttempt = DateTime.Now;
-                                
+
                                 this.Invoke(new Action(() =>
                                 {
                                     MessageBox.Show("Phone number not found. Please check your number and try again.", "Login Failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -166,7 +166,7 @@ namespace BookingRequests_System
             }
         }
 
-        private void LOGIN_ONWERS_Load(object sender, EventArgs e)
+        private void OwnerLoginForm_Load(object sender, EventArgs e)
         {
             // Form load event - reserved for future use
         }

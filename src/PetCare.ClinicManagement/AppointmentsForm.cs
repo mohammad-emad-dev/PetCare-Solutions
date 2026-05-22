@@ -11,18 +11,18 @@ using System.Windows.Forms;
 
 namespace bitcINTERFACE
 {
-    public partial class appointments : Form
+    public partial class AppointmentsForm : Form
     {
         private string connectionString = DatabaseConfig.ConnectionString;
 
         // This variable will hold the ID of the currently selected appointment
         private int? selectedAppointmentId = null;
-        public appointments()
+        public AppointmentsForm()
         {
             InitializeComponent();
         }
 
-        private void appointments_Load(object sender, EventArgs e)
+        private void AppointmentsForm_Load(object sender, EventArgs e)
         {
 
             // Set the format for the time picker

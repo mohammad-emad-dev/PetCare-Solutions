@@ -1,6 +1,6 @@
 ﻿namespace bitcINTERFACE
 {
-    partial class Owner_registration
+    partial class OwnerRegistrationForm
     {
         /// <summary>
         /// Required designer variable.
@@ -340,7 +340,7 @@
             this.label8.Text = "---------------------------------------------------------------------------------" +
     "---------------";
             // 
-            // Owner_registration
+            // OwnerRegistrationForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -364,9 +364,9 @@
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
-            this.Name = "Owner_registration";
-            this.Text = "Owner_registration";
-            this.Load += new System.EventHandler(this.Owner_registration_Load);
+            this.Name = "OwnerRegistrationForm";
+            this.Text = "Owner Registration";
+            this.Load += new System.EventHandler(this.OwnerRegistrationForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.ownersBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.ownersBindingSource1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();

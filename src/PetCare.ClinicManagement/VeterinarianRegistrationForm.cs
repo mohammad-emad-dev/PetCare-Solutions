@@ -11,18 +11,18 @@ using System.Windows.Forms;
 
 namespace bitcINTERFACE
 {
-   
 
-    public partial class Veterinarians_Registration : Form
+
+    public partial class VeterinarianRegistrationForm : Form
     {
         private string connectionString = DatabaseConfig.ConnectionString;
         private int? selectedVetId = null;
-        public Veterinarians_Registration()
+        public VeterinarianRegistrationForm()
         {
             InitializeComponent();
         }
 
-        private void Veterinarians_Registration_Load(object sender, EventArgs e)
+        private void VeterinarianRegistrationForm_Load(object sender, EventArgs e)
         {
             LoadVeterinarians();
 
@@ -78,7 +78,7 @@ namespace bitcINTERFACE
 
         }
 
-        
+
 
         private void button1_Click(object sender, EventArgs e)
         {

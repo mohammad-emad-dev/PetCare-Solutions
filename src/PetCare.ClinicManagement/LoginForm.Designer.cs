@@ -1,6 +1,6 @@
 ﻿namespace bitcINTERFACE
 {
-    partial class login
+    partial class LoginForm
     {
         /// <summary>
         /// Required designer variable.
@@ -99,9 +99,9 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.label1);
-            this.Name = "login";
-            this.Text = "login";
-            this.Load += new System.EventHandler(this.login_Load);
+            this.Name = "LoginForm";
+            this.Text = "Login";
+            this.Load += new System.EventHandler(this.LoginForm_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

@@ -11,19 +11,19 @@ using System.Windows.Forms;
 
 namespace bitcINTERFACE
 {
-    public partial class BookingRequests : Form
+    public partial class BookingRequestsForm : Form
     {
         private string connectionString = DatabaseConfig.ConnectionString;
 
         // This will store the details of the currently selected request
         private DataGridViewRow selectedRequestRow = null;
 
-        public BookingRequests()
+        public BookingRequestsForm()
         {
             InitializeComponent();
         }
 
-        private void BookingRequests_Load(object sender, EventArgs e)
+        private void BookingRequestsForm_Load(object sender, EventArgs e)
         {
             LoadVetsComboBox(); // Load vets into the dropdown
 

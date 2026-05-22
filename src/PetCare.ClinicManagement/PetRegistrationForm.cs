@@ -11,20 +11,20 @@ using System.Data.SqlClient;
 
 namespace bitcINTERFACE
 {
-    public partial class Pets_registration : Form
+    public partial class PetRegistrationForm : Form
     {
         private string connectionString = DatabaseConfig.ConnectionString;
         private int? selectedPetId = null; // To store the ID of the selected pet
 
 
-        public Pets_registration()
+        public PetRegistrationForm()
         {
             InitializeComponent();
 
-           
+
         }
 
-        private void Pets_registration_Load(object sender, EventArgs e)
+        private void PetRegistrationForm_Load(object sender, EventArgs e)
         {
             LoadPets();
 
@@ -257,4 +257,3 @@ namespace bitcINTERFACE
         }
     }
 }
-

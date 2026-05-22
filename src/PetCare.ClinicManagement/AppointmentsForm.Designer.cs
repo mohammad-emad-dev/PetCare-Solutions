@@ -1,6 +1,6 @@
 ﻿namespace bitcINTERFACE
 {
-    partial class appointments
+    partial class AppointmentsForm
     {
         /// <summary>
         /// Required designer variable.
@@ -357,9 +357,9 @@
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.label2);
-            this.Name = "appointments";
-            this.Text = "appointments";
-            this.Load += new System.EventHandler(this.appointments_Load);
+            this.Name = "AppointmentsForm";
+            this.Text = "Appointments";
+            this.Load += new System.EventHandler(this.AppointmentsForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.appointmentsBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.appointmentsBindingSource1)).EndInit();

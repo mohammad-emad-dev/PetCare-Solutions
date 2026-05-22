@@ -15,7 +15,7 @@ namespace bitcINTERFACE
     /// Login form with enhanced security features.
     /// Implements rate limiting, input validation, and secure password handling.
     /// </summary>
-    public partial class login : Form
+    public partial class LoginForm : Form
     {
         private string connectionString = DatabaseConfig.ConnectionString;
 
@@ -25,7 +25,7 @@ namespace bitcINTERFACE
         private const int MaxFailedAttempts = 5;
         private const int LockoutDurationMinutes = 15;
 
-        public login()
+        public LoginForm()
         {
             InitializeComponent();
             textBox2.PasswordChar = '*';
@@ -52,8 +52,8 @@ namespace bitcINTERFACE
         /// </summary>
         private bool IsValidUsername(string username)
         {
-            return !string.IsNullOrWhiteSpace(username) && 
-                   username.Length >= 3 && 
+            return !string.IsNullOrWhiteSpace(username) &&
+                   username.Length >= 3 &&
                    username.Length <= 50;
         }
 
@@ -75,7 +75,7 @@ namespace bitcINTERFACE
             return false;
         }
 
-        private void login_Load(object sender, EventArgs e)
+        private void LoginForm_Load(object sender, EventArgs e)
         {
             // Form load event
         }
@@ -166,11 +166,11 @@ namespace bitcINTERFACE
                                     this.Invoke(new Action(() =>
                                     {
                                         MessageBox.Show($"Login successful. Welcome, {retrievedUserRole}!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                                        
-                                        Dashboard dashboardForm = new Dashboard(userRole, username);
+
+                                        DashboardForm dashboardForm = new DashboardForm(userRole, username);
                                         dashboardForm.Show();
                                         this.Hide();
-                                        
+
                                         // Reset failed attempts on success
                                         _failedLoginAttempts = 0;
                                     }));
@@ -180,7 +180,7 @@ namespace bitcINTERFACE
                                     // Incorrect password
                                     _failedLoginAttempts++;
                                     _lastFailedAttempt = DateTime.Now;
-                                    
+
                                     this.Invoke(new Action(() =>
                                     {
                                         MessageBox.Show("Incorrect password.", "Login Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -192,7 +192,7 @@ namespace bitcINTERFACE
                                 // Username not found
                                 _failedLoginAttempts++;
                                 _lastFailedAttempt = DateTime.Now;
-                                
+
                                 this.Invoke(new Action(() =>
                                 {
                                     MessageBox.Show("Username not found.", "Login Error", MessageBoxButtons.OK, MessageBoxIcon.Error);

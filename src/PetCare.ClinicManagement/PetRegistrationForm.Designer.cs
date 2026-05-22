@@ -1,6 +1,6 @@
 ﻿namespace bitcINTERFACE
 {
-    partial class Pets_registration
+    partial class PetRegistrationForm
     {
         /// <summary>
         /// Required designer variable.
@@ -398,7 +398,7 @@
             this.textBox2.TabIndex = 42;
             this.textBox2.TextChanged += new System.EventHandler(this.textBox2_TextChanged);
             // 
-            // Pets_registration
+            // PetRegistrationForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -423,9 +423,9 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.label1);
-            this.Name = "Pets_registration";
-            this.Text = "Pets_registration";
-            this.Load += new System.EventHandler(this.Pets_registration_Load);
+            this.Name = "PetRegistrationForm";
+            this.Text = "Pet Registration";
+            this.Load += new System.EventHandler(this.PetRegistrationForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.petsBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.petsBindingSource1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.petCareSolutionsDataSet)).EndInit();

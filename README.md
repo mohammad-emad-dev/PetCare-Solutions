@@ -6,8 +6,8 @@ PetCare Solutions is a Windows Forms solution for managing veterinary clinic ope
 
 | Project | Purpose | Startup form |
 | --- | --- | --- |
-| PetCare.ClinicManagement | Clinic/admin application for users, owners, pets, veterinarians, appointments, medical records, and booking approvals. | `login` |
-| PetCare.OwnerBooking | Pet owner application for phone-number login and appointment request submission. | `LOGIN_ONWERS` |
+| PetCare.ClinicManagement | Clinic/admin application for users, owners, pets, veterinarians, appointments, medical records, and booking approvals. | `LoginForm` |
+| PetCare.OwnerBooking | Pet owner application for phone-number login and appointment request submission. | `OwnerLoginForm` |
 
 ## Technology
 

@@ -1,6 +1,6 @@
 ﻿namespace bitcINTERFACE
 {
-    partial class Veterinarians_Registration
+    partial class VeterinarianRegistrationForm
     {
         /// <summary>
         /// Required designer variable.
@@ -240,7 +240,7 @@
             this.textBox2.TabIndex = 30;
             this.textBox2.TextChanged += new System.EventHandler(this.textBox2_TextChanged);
             // 
-            // Veterinarians_Registration
+            // VeterinarianRegistrationForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -258,9 +258,9 @@
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label1);
-            this.Name = "Veterinarians_Registration";
-            this.Text = "Veterinarians_Registration";
-            this.Load += new System.EventHandler(this.Veterinarians_Registration_Load);
+            this.Name = "VeterinarianRegistrationForm";
+            this.Text = "Veterinarian Registration";
+            this.Load += new System.EventHandler(this.VeterinarianRegistrationForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.veterinariansBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.veterinariansBindingSource1)).EndInit();

@@ -1,6 +1,6 @@
 ﻿namespace bitcINTERFACE
 {
-    partial class Dashboard
+    partial class DashboardForm
     {
         /// <summary>
         /// Required designer variable.
@@ -113,7 +113,7 @@
             this.button6.Name = "button6";
             this.button6.Size = new System.Drawing.Size(212, 45);
             this.button6.TabIndex = 3;
-            this.button6.Text = "medical_records";
+            this.button6.Text = "MedicalRecordsForm";
             this.button6.UseVisualStyleBackColor = false;
             this.button6.Click += new System.EventHandler(this.button6_Click);
             // 
@@ -166,9 +166,9 @@
             this.Controls.Add(this.button3);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
-            this.Name = "Dashboard";
+            this.Name = "DashboardForm";
             this.Text = "Dashboard";
-            this.Load += new System.EventHandler(this.Dashboard_Load);
+            this.Load += new System.EventHandler(this.DashboardForm_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

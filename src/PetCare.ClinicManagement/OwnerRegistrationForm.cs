@@ -11,19 +11,19 @@ using System.Windows.Forms;
 
 namespace bitcINTERFACE
 {
-    public partial class Owner_registration : Form
+    public partial class OwnerRegistrationForm : Form
     {
         private string connectionString = DatabaseConfig.ConnectionString;
 
         // This variable will hold the ID of the currently selected owner for updates and deletes
         private int? selectedOwnerId = null;
 
-        public Owner_registration()
+        public OwnerRegistrationForm()
         {
             InitializeComponent();
         }
 
-        private void Owner_registration_Load(object sender, EventArgs e)
+        private void OwnerRegistrationForm_Load(object sender, EventArgs e)
         {
             LoadOwners();
 
@@ -114,7 +114,7 @@ namespace bitcINTERFACE
                 }
             }
             LoadOwners(); // Refresh the grid to show the new owner
-        
+
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -241,7 +241,7 @@ namespace bitcINTERFACE
                 textBox3.Text = row.Cells["streetDataGridViewTextBoxColumn"].Value.ToString();
                 textBox6.Text = row.Cells["cityDataGridViewTextBoxColumn"].Value.ToString();
             }
-        
+
     }
     }
 }

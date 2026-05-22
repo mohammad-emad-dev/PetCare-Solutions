@@ -11,17 +11,17 @@ using System.Windows.Forms;
 
 namespace bitcINTERFACE
 {
-    public partial class Users_Form : Form
+    public partial class UsersForm : Form
     {
         private string connectionString = DatabaseConfig.ConnectionString;
         private int? selectedUserId = null;
         private string passwordPlaceholder = "Enter new password to change";
-        public Users_Form()
+        public UsersForm()
         {
             InitializeComponent();
         }
 
-        private void Users_Form_Load(object sender, EventArgs e)
+        private void UsersForm_Load(object sender, EventArgs e)
         {
             textBox1.ReadOnly = true;
             textBox4.ReadOnly = true;
