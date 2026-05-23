@@ -63,7 +63,7 @@ namespace bitcINTERFACE
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Failed to load users' data: " + ex.Message);
+                UserMessages.ShowDatabaseError("Failed to load users", ex);
             }
         }
 
@@ -165,7 +165,7 @@ namespace bitcINTERFACE
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("Error adding user: " + ex.Message, "Database Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    UserMessages.ShowDatabaseError("Could not add user", ex);
                 }
             }
             LoadUsers();
@@ -208,7 +208,7 @@ namespace bitcINTERFACE
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("Error deleting user: " + ex.Message, "Database Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    UserMessages.ShowDatabaseError("Could not delete user", ex);
                 }
             }
             LoadUsers();
@@ -256,7 +256,7 @@ namespace bitcINTERFACE
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("Error updating user: " + ex.Message, "Database Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    UserMessages.ShowDatabaseError("Could not update user", ex);
                 }
             }
             LoadUsers();

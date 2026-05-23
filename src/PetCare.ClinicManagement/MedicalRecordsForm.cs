@@ -37,7 +37,7 @@ namespace bitcINTERFACE
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Failed to load medical records: " + ex.Message);
+                UserMessages.ShowDatabaseError("Failed to load medical records", ex);
             }
         }
 
@@ -57,7 +57,7 @@ namespace bitcINTERFACE
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Failed to load pets: " + ex.Message);
+                UserMessages.ShowDatabaseError("Failed to load pets", ex);
             }
         }
 
@@ -123,7 +123,7 @@ namespace bitcINTERFACE
                         }
                         catch (Exception ex)
                         {
-                            MessageBox.Show("Error fetching pet details: " + ex.Message);
+                            UserMessages.ShowDatabaseError("Could not load pet details", ex);
                         }
                     }
                 }
@@ -197,7 +197,7 @@ namespace bitcINTERFACE
                         }
                         catch (Exception ex)
                         {
-                            MessageBox.Show("Error saving record: " + ex.Message, "Database Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            UserMessages.ShowDatabaseError("Could not save medical record", ex);
                         }
                     }
                 }
@@ -227,7 +227,7 @@ namespace bitcINTERFACE
                         }
                         catch (Exception ex)
                         {
-                            MessageBox.Show("Error updating record: " + ex.Message, "Database Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            UserMessages.ShowDatabaseError("Could not update medical record", ex);
                         }
                     }
                 }

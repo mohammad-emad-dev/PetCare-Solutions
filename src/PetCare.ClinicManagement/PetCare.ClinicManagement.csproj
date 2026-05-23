@@ -105,6 +105,7 @@
     <Compile Include="UsersForm.Designer.cs">
       <DependentUpon>UsersForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="UserMessages.cs" />
     <Compile Include="VeterinarianRegistrationForm.cs">
       <SubType>Form</SubType>
     </Compile>

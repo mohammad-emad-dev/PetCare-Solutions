@@ -35,7 +35,7 @@ namespace bitcINTERFACE
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Failed to load veterinarians' data: " + ex.Message);
+                UserMessages.ShowDatabaseError("Failed to load veterinarians", ex);
             }
         }
 
@@ -125,7 +125,7 @@ namespace bitcINTERFACE
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("Error adding veterinarian: " + ex.Message, "Database Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    UserMessages.ShowDatabaseError("Could not add veterinarian", ex);
                 }
             }
             LoadVeterinarians();
@@ -172,7 +172,7 @@ namespace bitcINTERFACE
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("Error deleting veterinarian: " + ex.Message, "Database Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    UserMessages.ShowDatabaseError("Could not delete veterinarian", ex);
                 }
             }
             LoadVeterinarians();
@@ -215,7 +215,7 @@ namespace bitcINTERFACE
                     }
                     catch (Exception ex)
                     {
-                        MessageBox.Show("Error updating veterinarian: " + ex.Message, "Database Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        UserMessages.ShowDatabaseError("Could not update veterinarian", ex);
                     }
                 }
             }

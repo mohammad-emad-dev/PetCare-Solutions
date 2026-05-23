@@ -44,7 +44,7 @@ namespace bitcINTERFACE
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Failed to load appointments: " + ex.Message);
+                UserMessages.ShowDatabaseError("Failed to load appointments", ex);
             }
         }
 
@@ -62,7 +62,7 @@ namespace bitcINTERFACE
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Failed to load veterinarians: " + ex.Message);
+                UserMessages.ShowDatabaseError("Failed to load veterinarians", ex);
             }
         }
         private void LoadPetsComboBox()
@@ -221,7 +221,7 @@ namespace bitcINTERFACE
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("Error creating appointment: " + ex.Message, "Database Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    UserMessages.ShowDatabaseError("Could not create appointment", ex);
                 }
             }
             LoadAppointments();
@@ -255,7 +255,7 @@ namespace bitcINTERFACE
                     }
                     catch (Exception ex)
                     {
-                        MessageBox.Show("Error deleting appointment: " + ex.Message, "Database Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        UserMessages.ShowDatabaseError("Could not delete appointment", ex);
                     }
                 }
             }
@@ -294,7 +294,7 @@ namespace bitcINTERFACE
                     }
                     catch (Exception ex)
                     {
-                        MessageBox.Show("Error updating appointment: " + ex.Message, "Database Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        UserMessages.ShowDatabaseError("Could not update appointment", ex);
                     }
                 }
             }

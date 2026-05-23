@@ -42,7 +42,7 @@ namespace bitcINTERFACE
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Failed to load booking requests: " + ex.Message);
+                UserMessages.ShowDatabaseError("Failed to load booking requests", ex);
             }
         }
 
@@ -60,7 +60,7 @@ namespace bitcINTERFACE
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Failed to load veterinarians: " + ex.Message);
+                UserMessages.ShowDatabaseError("Failed to load veterinarians", ex);
             }
         }
 
@@ -189,7 +189,7 @@ namespace bitcINTERFACE
                 {
                     // If any error occurs, roll back all changes
                     transaction.Rollback();
-                    MessageBox.Show("An error occurred: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    UserMessages.ShowDatabaseError("Could not approve booking request", ex);
                 }
             }
 
@@ -223,7 +223,7 @@ namespace bitcINTERFACE
                     }
                     catch (Exception ex)
                     {
-                        MessageBox.Show("Error rejecting request: " + ex.Message);
+                        UserMessages.ShowDatabaseError("Could not reject booking request", ex);
                     }
                 }
             }

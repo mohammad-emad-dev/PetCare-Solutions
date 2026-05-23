@@ -37,7 +37,7 @@ namespace bitcINTERFACE
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Failed to load owners' data: " + ex.Message);
+                UserMessages.ShowDatabaseError("Failed to load owners", ex);
             }
         }
 
@@ -102,7 +102,7 @@ namespace bitcINTERFACE
                     }
                     catch (Exception ex)
                     {
-                        MessageBox.Show("Error adding owner: " + ex.Message, "Database Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        UserMessages.ShowDatabaseError("Could not add owner", ex);
                     }
                 }
             }
@@ -155,7 +155,7 @@ namespace bitcINTERFACE
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("Error deleting owner: " + ex.Message, "Database Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    UserMessages.ShowDatabaseError("Could not delete owner", ex);
                 }
             }
 
@@ -208,7 +208,7 @@ namespace bitcINTERFACE
                         }
                         catch (Exception ex)
                         {
-                            MessageBox.Show("Error updating owner: " + ex.Message, "Database Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            UserMessages.ShowDatabaseError("Could not update owner", ex);
                         }
                     }
                 }

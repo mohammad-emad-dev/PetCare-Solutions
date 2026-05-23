@@ -68,6 +68,7 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UserMessages.cs" />
     <EmbeddedResource Include="BookingDetailsForm.resx">
       <DependentUpon>BookingDetailsForm.cs</DependentUpon>
     </EmbeddedResource>

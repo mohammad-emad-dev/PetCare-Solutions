@@ -153,10 +153,7 @@ namespace BookingRequests_System
             }
             catch (Exception ex)
             {
-                // ✅ Improvement 8: Secure error handling - don't expose internal details
-                MessageBox.Show("An error occurred during login. Please try again later.", "System Error", MessageBoxButtons.OK, MessageBoxIcon.Stop);
-                // Log error internally (implement logging mechanism)
-                System.Diagnostics.Debug.WriteLine($"Login error: {ex.Message}");
+                UserMessages.ShowTechnicalError("An error occurred during login", ex);
             }
             finally
             {

@@ -38,7 +38,7 @@ namespace bitcINTERFACE
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Failed to load pets' data: " + ex.Message);
+                UserMessages.ShowDatabaseError("Failed to load pets", ex);
             }
         }
 
@@ -98,7 +98,7 @@ namespace bitcINTERFACE
                     }
                     catch (Exception ex)
                     {
-                        MessageBox.Show("Error adding pet: " + ex.Message, "Database Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        UserMessages.ShowDatabaseError("Could not add pet", ex);
                     }
                 }
             }
@@ -146,7 +146,7 @@ namespace bitcINTERFACE
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("Error deleting pet: " + ex.Message, "Database Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    UserMessages.ShowDatabaseError("Could not delete pet", ex);
                 }
             }
             LoadPets(); // Refresh grid
@@ -185,7 +185,7 @@ namespace bitcINTERFACE
                     }
                     catch (Exception ex)
                     {
-                        MessageBox.Show("Error updating pet: " + ex.Message, "Database Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        UserMessages.ShowDatabaseError("Could not update pet", ex);
                     }
                 }
             }
