@@ -29,8 +29,8 @@ namespace bitcINTERFACE
             dateTimePicker2.CustomFormat = "HH:mm"; // Hours and minutes
             dateTimePicker2.ShowUpDown = true;
             dateTimePicker2.Visible = true;
-            dateTimePicker2.MinDate = DateTime.Today;
             dateTimePicker2.MaxDate = DateTime.Today.AddDays(1);
+            dateTimePicker2.MinDate = DateTime.Today;
             dateTimePicker2.Value = DateTime.Today.AddHours(9);
 
             // Load all necessary data when the form opens
