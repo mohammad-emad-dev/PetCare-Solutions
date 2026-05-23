@@ -8,7 +8,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace bitcINTERFACE
 {
@@ -23,6 +22,7 @@ namespace bitcINTERFACE
 
         private void MedicalRecordsForm_Load(object sender, EventArgs e)
         {
+            ApplyInterfaceStyle();
             LoadMedicalRecords();
             LoadPetsComboBox();
 
@@ -34,11 +34,142 @@ namespace bitcINTERFACE
             {
                 string query = "SELECT * FROM medical_records";
                 dataGridView1.DataSource = Database.FillDataTable(query);
+                ConfigureMedicalRecordsGrid();
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Failed to load medical records: " + ex.Message);
+                UserMessages.ShowDatabaseError("Failed to load medical records", ex);
             }
+        }
+
+        private void ApplyInterfaceStyle()
+        {
+            Font = new Font("Segoe UI", 9.8F, FontStyle.Regular);
+            BackColor = Color.White;
+            BackgroundImageLayout = ImageLayout.Stretch;
+            StartPosition = FormStartPosition.CenterScreen;
+            FormBorderStyle = FormBorderStyle.FixedSingle;
+            MaximizeBox = false;
+
+            label1.Text = "Pet";
+            label2.Text = "Pet details";
+            label4.Text = "Diagnosis";
+            label6.Text = "Prescriptions";
+            label3.Text = "Vaccinations";
+            label5.Text = "Follow-up";
+            label7.Text = "Vet ID";
+
+            StyleLabel(label1);
+            StyleLabel(label2);
+            StyleLabel(label3);
+            StyleLabel(label4);
+            StyleLabel(label5);
+            StyleLabel(label6);
+            StyleLabel(label7);
+
+            StyleTextBox(textBox1);
+            StyleTextBox(textBox2);
+            StyleTextBox(textBox3);
+            StyleTextBox(textBox4);
+            StyleTextBox(textBox5);
+            comboBox1.Font = new Font("Segoe UI", 10.4F);
+            groupBox1.Font = new Font("Segoe UI", 9.5F, FontStyle.Regular);
+            groupBox1.BackColor = Color.Transparent;
+
+            StylePrimaryButton(button1, "Save Record");
+            StyleSecondaryButton(button2, "Clear");
+
+            dataGridView1.Location = new Point(32, 42);
+            dataGridView1.Size = new Size(548, 384);
+
+            int labelX = 616;
+            int inputX = 616;
+            int top = 42;
+            int gap = 57;
+            PositionField(label1, comboBox1, labelX, inputX, top);
+
+            label2.Location = new Point(labelX, top + gap);
+            groupBox1.Location = new Point(inputX, top + gap + 27);
+            groupBox1.Size = new Size(278, 92);
+
+            PositionField(label4, textBox3, labelX, inputX, top + (gap * 3));
+            PositionField(label6, textBox4, labelX, inputX, top + (gap * 4));
+            PositionField(label3, textBox1, labelX, inputX, top + (gap * 5));
+            PositionField(label5, textBox5, labelX, inputX, top + (gap * 6));
+            PositionField(label7, textBox2, labelX, inputX, top + (gap * 7));
+
+            button1.Location = new Point(32, 452);
+            button2.Location = new Point(214, 452);
+            ClientSize = new Size(930, 520);
+        }
+
+        private void ConfigureMedicalRecordsGrid()
+        {
+            dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dataGridView1.BackgroundColor = Color.White;
+            dataGridView1.BorderStyle = BorderStyle.FixedSingle;
+            dataGridView1.EnableHeadersVisualStyles = false;
+            dataGridView1.ColumnHeadersDefaultCellStyle.BackColor = Color.FromArgb(0, 96, 173);
+            dataGridView1.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
+            dataGridView1.ColumnHeadersDefaultCellStyle.Font = new Font("Segoe UI", 9.5F, FontStyle.Bold);
+            dataGridView1.DefaultCellStyle.Font = new Font("Segoe UI", 9.2F);
+            dataGridView1.RowHeadersVisible = false;
+
+            SetColumnHeader(petIdDataGridViewTextBoxColumn, "Pet ID");
+            SetColumnHeader(idDataGridViewTextBoxColumn, "Record ID");
+            SetColumnHeader(diagnosisDataGridViewTextBoxColumn, "Diagnosis");
+            SetColumnHeader(prescriptionsDataGridViewTextBoxColumn, "Prescriptions");
+            SetColumnHeader(vaccinationsGivenDataGridViewTextBoxColumn, "Vaccinations");
+            SetColumnHeader(followupInstructionsDataGridViewTextBoxColumn, "Follow-up");
+            SetColumnHeader(vetIdDataGridViewTextBoxColumn, "Vet ID");
+        }
+
+        private void PositionField(Label label, Control control, int labelX, int inputX, int top)
+        {
+            label.Location = new Point(labelX, top);
+            control.Location = new Point(inputX, top + 27);
+            control.Size = new Size(278, 32);
+        }
+
+        private void StyleLabel(Label label)
+        {
+            label.BackColor = Color.Transparent;
+            label.Font = new Font("Segoe UI", 9.8F, FontStyle.Bold);
+            label.ForeColor = Color.FromArgb(34, 58, 94);
+        }
+
+        private void StyleTextBox(TextBox textBox)
+        {
+            textBox.BorderStyle = BorderStyle.FixedSingle;
+            textBox.Font = new Font("Segoe UI", 10.4F);
+            textBox.Multiline = false;
+        }
+
+        private void StylePrimaryButton(Button button, string text)
+        {
+            StyleButton(button, text, Color.FromArgb(0, 96, 173));
+        }
+
+        private void StyleSecondaryButton(Button button, string text)
+        {
+            StyleButton(button, text, Color.FromArgb(40, 47, 56));
+        }
+
+        private void StyleButton(Button button, string text, Color backColor)
+        {
+            button.Text = text;
+            button.BackColor = backColor;
+            button.ForeColor = Color.White;
+            button.FlatStyle = FlatStyle.Flat;
+            button.FlatAppearance.BorderSize = 0;
+            button.Font = new Font("Segoe UI", 10.2F, FontStyle.Bold);
+            button.Size = new Size(158, 42);
+            button.UseVisualStyleBackColor = false;
+        }
+
+        private void SetColumnHeader(DataGridViewColumn column, string headerText)
+        {
+            column.HeaderText = headerText;
         }
 
         // Method to load pet names into comboBox1
@@ -57,7 +188,7 @@ namespace bitcINTERFACE
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Failed to load pets: " + ex.Message);
+                UserMessages.ShowDatabaseError("Failed to load pets", ex);
             }
         }
 
@@ -123,7 +254,7 @@ namespace bitcINTERFACE
                         }
                         catch (Exception ex)
                         {
-                            MessageBox.Show("Error fetching pet details: " + ex.Message);
+                            UserMessages.ShowDatabaseError("Could not load pet details", ex);
                         }
                     }
                 }
@@ -197,7 +328,7 @@ namespace bitcINTERFACE
                         }
                         catch (Exception ex)
                         {
-                            MessageBox.Show("Error saving record: " + ex.Message, "Database Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            UserMessages.ShowDatabaseError("Could not save medical record", ex);
                         }
                     }
                 }
@@ -227,7 +358,7 @@ namespace bitcINTERFACE
                         }
                         catch (Exception ex)
                         {
-                            MessageBox.Show("Error updating record: " + ex.Message, "Database Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            UserMessages.ShowDatabaseError("Could not update medical record", ex);
                         }
                     }
                 }

@@ -203,9 +203,7 @@ namespace bitcINTERFACE
             }
             catch (Exception ex)
             {
-                // ✅ Improvement 8: Secure error handling - don't expose internal details
-                MessageBox.Show("An error occurred during login. Please try again later.", "Technical Error", MessageBoxButtons.OK, MessageBoxIcon.Stop);
-                System.Diagnostics.Debug.WriteLine($"Login error: {ex.Message}");
+                UserMessages.ShowTechnicalError("An error occurred during login", ex);
             }
             finally
             {

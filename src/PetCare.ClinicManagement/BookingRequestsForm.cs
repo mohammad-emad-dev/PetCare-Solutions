@@ -24,6 +24,7 @@ namespace bitcINTERFACE
 
         private void BookingRequestsForm_Load(object sender, EventArgs e)
         {
+            ApplyInterfaceStyle();
             LoadVetsComboBox(); // Load vets into the dropdown
 
             // Set the default filter to "Pending" and load the initial data
@@ -39,11 +40,109 @@ namespace bitcINTERFACE
                 dataGridView1.DataSource = Database.FillDataTable(
                     query,
                     parameters => parameters.AddWithValue("@status", status));
+                ConfigureBookingRequestsGrid();
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Failed to load booking requests: " + ex.Message);
+                UserMessages.ShowDatabaseError("Failed to load booking requests", ex);
             }
+        }
+
+        private void ApplyInterfaceStyle()
+        {
+            Font = new Font("Segoe UI", 9.8F, FontStyle.Regular);
+            BackColor = Color.White;
+            BackgroundImageLayout = ImageLayout.Stretch;
+            StartPosition = FormStartPosition.CenterScreen;
+            FormBorderStyle = FormBorderStyle.FixedSingle;
+            MaximizeBox = false;
+
+            label1.Text = "Status";
+            label2.Text = "Request details";
+            label3.Text = "Veterinarian";
+            StyleLabel(label1);
+            StyleLabel(label2);
+            StyleLabel(label3);
+            comboBox1.Font = new Font("Segoe UI", 10.4F);
+            comboBox2.Font = new Font("Segoe UI", 10.4F);
+            groupBox1.Font = new Font("Segoe UI", 9.5F);
+            groupBox1.BackColor = Color.Transparent;
+
+            StylePrimaryButton(button1, "Approve");
+            StyleDangerButton(button2, "Reject");
+
+            dataGridView1.Location = new Point(32, 42);
+            dataGridView1.Size = new Size(548, 348);
+
+            label1.Location = new Point(616, 50);
+            comboBox1.Location = new Point(616, 78);
+            comboBox1.Size = new Size(250, 32);
+
+            label2.Location = new Point(616, 134);
+            groupBox1.Location = new Point(616, 162);
+            groupBox1.Size = new Size(250, 116);
+
+            label3.Location = new Point(616, 306);
+            comboBox2.Location = new Point(616, 334);
+            comboBox2.Size = new Size(250, 32);
+
+            button1.Location = new Point(32, 420);
+            button2.Location = new Point(212, 420);
+            ClientSize = new Size(910, 490);
+        }
+
+        private void ConfigureBookingRequestsGrid()
+        {
+            dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dataGridView1.BackgroundColor = Color.White;
+            dataGridView1.BorderStyle = BorderStyle.FixedSingle;
+            dataGridView1.EnableHeadersVisualStyles = false;
+            dataGridView1.ColumnHeadersDefaultCellStyle.BackColor = Color.FromArgb(0, 96, 173);
+            dataGridView1.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
+            dataGridView1.ColumnHeadersDefaultCellStyle.Font = new Font("Segoe UI", 9.5F, FontStyle.Bold);
+            dataGridView1.DefaultCellStyle.Font = new Font("Segoe UI", 9.2F);
+            dataGridView1.RowHeadersVisible = false;
+
+            SetColumnHeader(requestIDDataGridViewTextBoxColumn, "Request ID");
+            SetColumnHeader(ownerIDDataGridViewTextBoxColumn, "Owner ID");
+            SetColumnHeader(petIDDataGridViewTextBoxColumn, "Pet ID");
+            SetColumnHeader(requestedDateDataGridViewTextBoxColumn, "Date");
+            SetColumnHeader(requestedTimeDataGridViewTextBoxColumn, "Time");
+            SetColumnHeader(statusDataGridViewTextBoxColumn, "Status");
+        }
+
+        private void StyleLabel(Label label)
+        {
+            label.BackColor = Color.Transparent;
+            label.Font = new Font("Segoe UI", 9.8F, FontStyle.Bold);
+            label.ForeColor = Color.FromArgb(34, 58, 94);
+        }
+
+        private void StylePrimaryButton(Button button, string text)
+        {
+            StyleButton(button, text, Color.FromArgb(0, 96, 173));
+        }
+
+        private void StyleDangerButton(Button button, string text)
+        {
+            StyleButton(button, text, Color.FromArgb(178, 67, 67));
+        }
+
+        private void StyleButton(Button button, string text, Color backColor)
+        {
+            button.Text = text;
+            button.BackColor = backColor;
+            button.ForeColor = Color.White;
+            button.FlatStyle = FlatStyle.Flat;
+            button.FlatAppearance.BorderSize = 0;
+            button.Font = new Font("Segoe UI", 10.2F, FontStyle.Bold);
+            button.Size = new Size(150, 42);
+            button.UseVisualStyleBackColor = false;
+        }
+
+        private void SetColumnHeader(DataGridViewColumn column, string headerText)
+        {
+            column.HeaderText = headerText;
         }
 
         // Method to load veterinarians into comboBox2
@@ -60,7 +159,7 @@ namespace bitcINTERFACE
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Failed to load veterinarians: " + ex.Message);
+                UserMessages.ShowDatabaseError("Failed to load veterinarians", ex);
             }
         }
 
@@ -189,7 +288,7 @@ namespace bitcINTERFACE
                 {
                     // If any error occurs, roll back all changes
                     transaction.Rollback();
-                    MessageBox.Show("An error occurred: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    UserMessages.ShowDatabaseError("Could not approve booking request", ex);
                 }
             }
 
@@ -223,7 +322,7 @@ namespace bitcINTERFACE
                     }
                     catch (Exception ex)
                     {
-                        MessageBox.Show("Error rejecting request: " + ex.Message);
+                        UserMessages.ShowDatabaseError("Could not reject booking request", ex);
                     }
                 }
             }

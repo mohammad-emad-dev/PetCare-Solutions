@@ -22,6 +22,7 @@ namespace bitcINTERFACE
 
         private void UsersForm_Load(object sender, EventArgs e)
         {
+            ApplyInterfaceStyle();
             textBox1.ReadOnly = true;
             textBox4.ReadOnly = true;
             textBox3.PasswordChar = '\0'; // Use normal characters for placeholder
@@ -59,12 +60,134 @@ namespace bitcINTERFACE
             {
                 string query = "SELECT id, username, role, dateCreated FROM users";
                 dataGridView1.DataSource = Database.FillDataTable(query);
+                ConfigureUsersGrid();
                 HidePasswordColumn();
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Failed to load users' data: " + ex.Message);
+                UserMessages.ShowDatabaseError("Failed to load users", ex);
             }
+        }
+
+        private void ApplyInterfaceStyle()
+        {
+            Font = new Font("Segoe UI", 9.8F, FontStyle.Regular);
+            BackColor = Color.White;
+            BackgroundImageLayout = ImageLayout.Stretch;
+            StartPosition = FormStartPosition.CenterScreen;
+            FormBorderStyle = FormBorderStyle.FixedSingle;
+            MaximizeBox = false;
+
+            label1.Text = "User ID";
+            label2.Text = "Username";
+            label3.Text = "Password";
+            label4.Text = "Role";
+            label5.Text = "Created";
+
+            StyleLabel(label1);
+            StyleLabel(label2);
+            StyleLabel(label3);
+            StyleLabel(label4);
+            StyleLabel(label5);
+            StyleTextBox(textBox1);
+            StyleTextBox(textBox2);
+            StyleTextBox(textBox3);
+            StyleTextBox(textBox4);
+            comboBox1.Font = new Font("Segoe UI", 10.4F);
+
+            StylePrimaryButton(button3, "Add User");
+            StyleDangerButton(button2, "Delete");
+            StyleSecondaryButton(button1, "Update");
+
+            dataGridView1.Location = new Point(32, 42);
+            dataGridView1.Size = new Size(548, 384);
+
+            int labelX = 616;
+            int inputX = 616;
+            int top = 48;
+            int gap = 68;
+            PositionField(label1, textBox1, labelX, inputX, top);
+            PositionField(label2, textBox2, labelX, inputX, top + gap);
+            PositionField(label3, textBox3, labelX, inputX, top + (gap * 2));
+            PositionField(label4, comboBox1, labelX, inputX, top + (gap * 3));
+            PositionField(label5, textBox4, labelX, inputX, top + (gap * 4));
+
+            button3.Location = new Point(32, 452);
+            button2.Location = new Point(190, 452);
+            button1.Location = new Point(348, 452);
+            ClientSize = new Size(920, 520);
+        }
+
+        private void ConfigureUsersGrid()
+        {
+            dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dataGridView1.BackgroundColor = Color.White;
+            dataGridView1.BorderStyle = BorderStyle.FixedSingle;
+            dataGridView1.EnableHeadersVisualStyles = false;
+            dataGridView1.ColumnHeadersDefaultCellStyle.BackColor = Color.FromArgb(0, 96, 173);
+            dataGridView1.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
+            dataGridView1.ColumnHeadersDefaultCellStyle.Font = new Font("Segoe UI", 9.5F, FontStyle.Bold);
+            dataGridView1.DefaultCellStyle.Font = new Font("Segoe UI", 9.2F);
+            dataGridView1.RowHeadersVisible = false;
+
+            SetColumnHeader(idDataGridViewTextBoxColumn, "ID");
+            SetColumnHeader(usernameDataGridViewTextBoxColumn, "Username");
+            SetColumnHeader(passwordHashDataGridViewTextBoxColumn, "Password Hash");
+            SetColumnHeader(roleDataGridViewTextBoxColumn, "Role");
+            SetColumnHeader(dateCreatedDataGridViewTextBoxColumn, "Created");
+        }
+
+        private void PositionField(Label label, Control control, int labelX, int inputX, int top)
+        {
+            label.Location = new Point(labelX, top);
+            control.Location = new Point(inputX, top + 27);
+            control.Size = new Size(276, 32);
+        }
+
+        private void StyleLabel(Label label)
+        {
+            label.BackColor = Color.Transparent;
+            label.Font = new Font("Segoe UI", 9.8F, FontStyle.Bold);
+            label.ForeColor = Color.FromArgb(34, 58, 94);
+        }
+
+        private void StyleTextBox(TextBox textBox)
+        {
+            textBox.BorderStyle = BorderStyle.FixedSingle;
+            textBox.Font = new Font("Segoe UI", 10.4F);
+            textBox.Multiline = false;
+        }
+
+        private void StylePrimaryButton(Button button, string text)
+        {
+            StyleButton(button, text, Color.FromArgb(0, 96, 173));
+        }
+
+        private void StyleSecondaryButton(Button button, string text)
+        {
+            StyleButton(button, text, Color.FromArgb(40, 47, 56));
+        }
+
+        private void StyleDangerButton(Button button, string text)
+        {
+            StyleButton(button, text, Color.FromArgb(178, 67, 67));
+        }
+
+        private void StyleButton(Button button, string text, Color backColor)
+        {
+            button.Text = text;
+            button.BackColor = backColor;
+            button.ForeColor = Color.White;
+            button.FlatStyle = FlatStyle.Flat;
+            button.FlatAppearance.BorderSize = 0;
+            button.Font = new Font("Segoe UI", 10.2F, FontStyle.Bold);
+            button.Size = new Size(136, 42);
+            button.UseVisualStyleBackColor = false;
+        }
+
+        private void SetColumnHeader(DataGridViewColumn column, string headerText)
+        {
+            column.HeaderText = headerText;
         }
 
         private void HidePasswordColumn()
@@ -165,7 +288,7 @@ namespace bitcINTERFACE
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("Error adding user: " + ex.Message, "Database Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    UserMessages.ShowDatabaseError("Could not add user", ex);
                 }
             }
             LoadUsers();
@@ -208,7 +331,7 @@ namespace bitcINTERFACE
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("Error deleting user: " + ex.Message, "Database Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    UserMessages.ShowDatabaseError("Could not delete user", ex);
                 }
             }
             LoadUsers();
@@ -256,7 +379,7 @@ namespace bitcINTERFACE
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("Error updating user: " + ex.Message, "Database Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    UserMessages.ShowDatabaseError("Could not update user", ex);
                 }
             }
             LoadUsers();

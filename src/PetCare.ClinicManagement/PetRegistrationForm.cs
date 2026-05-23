@@ -25,6 +25,7 @@ namespace bitcINTERFACE
 
         private void PetRegistrationForm_Load(object sender, EventArgs e)
         {
+            ApplyInterfaceStyle();
             LoadPets();
 
         }
@@ -35,11 +36,152 @@ namespace bitcINTERFACE
             {
                 string query = "SELECT * FROM pets";
                 dataGridView1.DataSource = Database.FillDataTable(query);
+                ConfigurePetsGrid();
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Failed to load pets' data: " + ex.Message);
+                UserMessages.ShowDatabaseError("Failed to load pets", ex);
             }
+        }
+
+        private void ApplyInterfaceStyle()
+        {
+            Font = new Font("Segoe UI", 9.8F, FontStyle.Regular);
+            BackColor = Color.White;
+            BackgroundImageLayout = ImageLayout.Stretch;
+            StartPosition = FormStartPosition.CenterScreen;
+            FormBorderStyle = FormBorderStyle.FixedSingle;
+            MaximizeBox = false;
+
+            label1.Text = "Name";
+            label4.Text = "Species";
+            label5.Text = "Breed";
+            label2.Text = "Birth date";
+            label3.Text = "Gender";
+            label6.Text = "Medical notes";
+            label7.Text = "Owner ID";
+
+            StyleLabel(label1);
+            StyleLabel(label2);
+            StyleLabel(label3);
+            StyleLabel(label4);
+            StyleLabel(label5);
+            StyleLabel(label6);
+            StyleLabel(label7);
+
+            StyleTextBox(textBox1);
+            StyleTextBox(textBox2);
+            StyleTextBox(textBox3);
+            StyleTextBox(textBox4);
+            comboBox1.Font = new Font("Segoe UI", 10.4F);
+            dateTimePicker1.Font = new Font("Segoe UI", 10.4F);
+            radioButton1.Font = new Font("Segoe UI", 10.2F);
+            radioButton2.Font = new Font("Segoe UI", 10.2F);
+            radioButton1.BackColor = Color.Transparent;
+            radioButton2.BackColor = Color.Transparent;
+
+            StylePrimaryButton(button1, "Add Pet");
+            StyleDangerButton(button2, "Delete");
+            StyleSecondaryButton(button3, "Update");
+
+            dataGridView1.Location = new Point(32, 42);
+            dataGridView1.Size = new Size(548, 384);
+
+            int labelX = 616;
+            int inputX = 616;
+            int top = 48;
+            int gap = 59;
+            PositionField(label1, textBox1, labelX, inputX, top);
+            PositionField(label4, comboBox1, labelX, inputX, top + gap);
+            PositionField(label5, textBox3, labelX, inputX, top + (gap * 2));
+            PositionField(label2, dateTimePicker1, labelX, inputX, top + (gap * 3));
+
+            label3.Location = new Point(labelX, top + (gap * 4));
+            radioButton1.Location = new Point(inputX, top + (gap * 4) + 28);
+            radioButton2.Location = new Point(inputX + 110, top + (gap * 4) + 28);
+
+            PositionField(label6, textBox4, labelX, inputX, top + (gap * 5));
+            PositionField(label7, textBox2, labelX, inputX, top + (gap * 6));
+
+            button1.Location = new Point(32, 452);
+            button2.Location = new Point(190, 452);
+            button3.Location = new Point(348, 452);
+            ClientSize = new Size(930, 520);
+        }
+
+        private void ConfigurePetsGrid()
+        {
+            dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dataGridView1.BackgroundColor = Color.White;
+            dataGridView1.BorderStyle = BorderStyle.FixedSingle;
+            dataGridView1.EnableHeadersVisualStyles = false;
+            dataGridView1.ColumnHeadersDefaultCellStyle.BackColor = Color.FromArgb(0, 96, 173);
+            dataGridView1.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
+            dataGridView1.ColumnHeadersDefaultCellStyle.Font = new Font("Segoe UI", 9.5F, FontStyle.Bold);
+            dataGridView1.DefaultCellStyle.Font = new Font("Segoe UI", 9.2F);
+            dataGridView1.RowHeadersVisible = false;
+
+            SetColumnHeader(idDataGridViewTextBoxColumn, "ID");
+            SetColumnHeader(nameDataGridViewTextBoxColumn, "Name");
+            SetColumnHeader(speciesDataGridViewTextBoxColumn, "Species");
+            SetColumnHeader(breedDataGridViewTextBoxColumn, "Breed");
+            SetColumnHeader(dateOfBirthDataGridViewTextBoxColumn, "Birth Date");
+            SetColumnHeader(medicalNotesDataGridViewTextBoxColumn, "Medical Notes");
+            SetColumnHeader(ownerIdDataGridViewTextBoxColumn, "Owner ID");
+            SetColumnHeader(genderDataGridViewTextBoxColumn, "Gender");
+        }
+
+        private void PositionField(Label label, Control control, int labelX, int inputX, int top)
+        {
+            label.Location = new Point(labelX, top);
+            control.Location = new Point(inputX, top + 27);
+            control.Size = new Size(276, 32);
+        }
+
+        private void StyleLabel(Label label)
+        {
+            label.BackColor = Color.Transparent;
+            label.Font = new Font("Segoe UI", 9.8F, FontStyle.Bold);
+            label.ForeColor = Color.FromArgb(34, 58, 94);
+        }
+
+        private void StyleTextBox(TextBox textBox)
+        {
+            textBox.BorderStyle = BorderStyle.FixedSingle;
+            textBox.Font = new Font("Segoe UI", 10.4F);
+            textBox.Multiline = false;
+        }
+
+        private void StylePrimaryButton(Button button, string text)
+        {
+            StyleButton(button, text, Color.FromArgb(0, 96, 173));
+        }
+
+        private void StyleSecondaryButton(Button button, string text)
+        {
+            StyleButton(button, text, Color.FromArgb(40, 47, 56));
+        }
+
+        private void StyleDangerButton(Button button, string text)
+        {
+            StyleButton(button, text, Color.FromArgb(178, 67, 67));
+        }
+
+        private void StyleButton(Button button, string text, Color backColor)
+        {
+            button.Text = text;
+            button.BackColor = backColor;
+            button.ForeColor = Color.White;
+            button.FlatStyle = FlatStyle.Flat;
+            button.FlatAppearance.BorderSize = 0;
+            button.Font = new Font("Segoe UI", 10.2F, FontStyle.Bold);
+            button.Size = new Size(136, 42);
+            button.UseVisualStyleBackColor = false;
+        }
+
+        private void SetColumnHeader(DataGridViewColumn column, string headerText)
+        {
+            column.HeaderText = headerText;
         }
 
         private void textBox1_TextChanged(object sender, EventArgs e)
@@ -98,7 +240,7 @@ namespace bitcINTERFACE
                     }
                     catch (Exception ex)
                     {
-                        MessageBox.Show("Error adding pet: " + ex.Message, "Database Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        UserMessages.ShowDatabaseError("Could not add pet", ex);
                     }
                 }
             }
@@ -146,7 +288,7 @@ namespace bitcINTERFACE
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("Error deleting pet: " + ex.Message, "Database Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    UserMessages.ShowDatabaseError("Could not delete pet", ex);
                 }
             }
             LoadPets(); // Refresh grid
@@ -185,7 +327,7 @@ namespace bitcINTERFACE
                     }
                     catch (Exception ex)
                     {
-                        MessageBox.Show("Error updating pet: " + ex.Message, "Database Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        UserMessages.ShowDatabaseError("Could not update pet", ex);
                     }
                 }
             }

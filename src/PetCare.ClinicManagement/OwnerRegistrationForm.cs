@@ -24,6 +24,7 @@ namespace bitcINTERFACE
 
         private void OwnerRegistrationForm_Load(object sender, EventArgs e)
         {
+            ApplyInterfaceStyle();
             LoadOwners();
 
         }
@@ -34,11 +35,154 @@ namespace bitcINTERFACE
             {
                 string query = "SELECT * FROM owners";
                 dataGridView1.DataSource = Database.FillDataTable(query);
+                ConfigureOwnersGrid();
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Failed to load owners' data: " + ex.Message);
+                UserMessages.ShowDatabaseError("Failed to load owners", ex);
             }
+        }
+
+        private void ApplyInterfaceStyle()
+        {
+            UseWaitCursor = false;
+            ClearWaitCursor(this);
+
+            Font = new Font("Segoe UI", 9.8F, FontStyle.Regular);
+            BackColor = Color.White;
+            BackgroundImageLayout = ImageLayout.Stretch;
+            StartPosition = FormStartPosition.CenterScreen;
+            FormBorderStyle = FormBorderStyle.FixedSingle;
+            MaximizeBox = false;
+
+            label1.Text = "First name";
+            label6.Text = "Last name";
+            label2.Text = "Phone";
+            label3.Text = "Email";
+            label4.Text = "Street";
+            label5.Text = "City";
+            label7.Visible = false;
+            label8.Visible = false;
+
+            StyleLabel(label1);
+            StyleLabel(label2);
+            StyleLabel(label3);
+            StyleLabel(label4);
+            StyleLabel(label5);
+            StyleLabel(label6);
+
+            StyleTextBox(textBox1);
+            StyleTextBox(textBox2);
+            StyleTextBox(textBox3);
+            StyleTextBox(textBox4);
+            StyleTextBox(textBox5);
+            StyleTextBox(textBox6);
+
+            StylePrimaryButton(button2, "Add Owner");
+            StyleSecondaryButton(button3, "Update");
+            StyleDangerButton(button1, "Delete");
+
+            dataGridView1.Location = new Point(32, 42);
+            dataGridView1.Size = new Size(560, 384);
+
+            int labelX = 624;
+            int inputX = 624;
+            int top = 54;
+            int gap = 67;
+            PositionField(label1, textBox1, labelX, inputX, top);
+            PositionField(label6, textBox5, labelX, inputX, top + gap);
+            PositionField(label2, textBox2, labelX, inputX, top + (gap * 2));
+            PositionField(label3, textBox4, labelX, inputX, top + (gap * 3));
+            PositionField(label4, textBox3, labelX, inputX, top + (gap * 4));
+            PositionField(label5, textBox6, labelX, inputX, top + (gap * 5));
+
+            button2.Location = new Point(32, 452);
+            button1.Location = new Point(190, 452);
+            button3.Location = new Point(348, 452);
+            ClientSize = new Size(970, 520);
+        }
+
+        private void ConfigureOwnersGrid()
+        {
+            dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dataGridView1.BackgroundColor = Color.White;
+            dataGridView1.BorderStyle = BorderStyle.FixedSingle;
+            dataGridView1.EnableHeadersVisualStyles = false;
+            dataGridView1.ColumnHeadersDefaultCellStyle.BackColor = Color.FromArgb(0, 96, 173);
+            dataGridView1.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
+            dataGridView1.ColumnHeadersDefaultCellStyle.Font = new Font("Segoe UI", 9.5F, FontStyle.Bold);
+            dataGridView1.DefaultCellStyle.Font = new Font("Segoe UI", 9.2F);
+            dataGridView1.RowHeadersVisible = false;
+
+            SetColumnHeader(idDataGridViewTextBoxColumn, "ID");
+            SetColumnHeader(firstNameDataGridViewTextBoxColumn, "First Name");
+            SetColumnHeader(lastNameDataGridViewTextBoxColumn, "Last Name");
+            SetColumnHeader(phoneNumberDataGridViewTextBoxColumn, "Phone");
+            SetColumnHeader(emailDataGridViewTextBoxColumn, "Email");
+            SetColumnHeader(streetDataGridViewTextBoxColumn, "Street");
+            SetColumnHeader(cityDataGridViewTextBoxColumn, "City");
+        }
+
+        private void ClearWaitCursor(Control parent)
+        {
+            parent.UseWaitCursor = false;
+            foreach (Control child in parent.Controls)
+            {
+                ClearWaitCursor(child);
+            }
+        }
+
+        private void PositionField(Label label, TextBox textBox, int labelX, int inputX, int top)
+        {
+            label.Location = new Point(labelX, top);
+            textBox.Location = new Point(inputX, top + 27);
+            textBox.Size = new Size(300, 32);
+        }
+
+        private void StyleLabel(Label label)
+        {
+            label.BackColor = Color.Transparent;
+            label.Font = new Font("Segoe UI", 9.8F, FontStyle.Bold);
+            label.ForeColor = Color.FromArgb(34, 58, 94);
+        }
+
+        private void StyleTextBox(TextBox textBox)
+        {
+            textBox.BorderStyle = BorderStyle.FixedSingle;
+            textBox.Font = new Font("Segoe UI", 10.4F);
+            textBox.Multiline = false;
+        }
+
+        private void StylePrimaryButton(Button button, string text)
+        {
+            StyleButton(button, text, Color.FromArgb(0, 96, 173));
+        }
+
+        private void StyleSecondaryButton(Button button, string text)
+        {
+            StyleButton(button, text, Color.FromArgb(40, 47, 56));
+        }
+
+        private void StyleDangerButton(Button button, string text)
+        {
+            StyleButton(button, text, Color.FromArgb(178, 67, 67));
+        }
+
+        private void StyleButton(Button button, string text, Color backColor)
+        {
+            button.Text = text;
+            button.BackColor = backColor;
+            button.ForeColor = Color.White;
+            button.FlatStyle = FlatStyle.Flat;
+            button.FlatAppearance.BorderSize = 0;
+            button.Font = new Font("Segoe UI", 10.2F, FontStyle.Bold);
+            button.Size = new Size(136, 42);
+            button.UseVisualStyleBackColor = false;
+        }
+
+        private void SetColumnHeader(DataGridViewColumn column, string headerText)
+        {
+            column.HeaderText = headerText;
         }
 
         private void textBox1_TextChanged(object sender, EventArgs e)
@@ -102,7 +246,7 @@ namespace bitcINTERFACE
                     }
                     catch (Exception ex)
                     {
-                        MessageBox.Show("Error adding owner: " + ex.Message, "Database Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        UserMessages.ShowDatabaseError("Could not add owner", ex);
                     }
                 }
             }
@@ -155,7 +299,7 @@ namespace bitcINTERFACE
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("Error deleting owner: " + ex.Message, "Database Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    UserMessages.ShowDatabaseError("Could not delete owner", ex);
                 }
             }
 
@@ -208,7 +352,7 @@ namespace bitcINTERFACE
                         }
                         catch (Exception ex)
                         {
-                            MessageBox.Show("Error updating owner: " + ex.Message, "Database Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            UserMessages.ShowDatabaseError("Could not update owner", ex);
                         }
                     }
                 }

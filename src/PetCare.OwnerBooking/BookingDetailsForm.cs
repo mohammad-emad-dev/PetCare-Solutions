@@ -84,9 +84,7 @@ namespace BookingRequests_System
             }
             catch (Exception ex)
             {
-                // ✅ Improvement 5: Secure error handling
-                MessageBox.Show("Failed to load your pets. Please try again later.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                System.Diagnostics.Debug.WriteLine($"Load pets error: {ex.Message}");
+                UserMessages.ShowDatabaseError("Failed to load your pets", ex);
 
                 this.Invoke(new Action(() =>
                 {
@@ -226,9 +224,7 @@ namespace BookingRequests_System
             }
             catch (Exception ex)
             {
-                // ✅ Improvement 12: Secure error handling
-                MessageBox.Show("Error sending request. Please try again later.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                System.Diagnostics.Debug.WriteLine($"Booking error: {ex.Message}");
+                UserMessages.ShowDatabaseError("Could not send booking request", ex);
             }
             finally
             {

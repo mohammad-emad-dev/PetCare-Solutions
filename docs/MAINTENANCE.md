@@ -15,8 +15,9 @@ This project was cleaned so it can be reopened and released with less friction.
 - Added PBKDF2 password hashing for clinic users, including automatic upgrade of legacy plain-text passwords after successful login.
 - Renamed Windows Forms classes and files to consistent `Form`-suffixed names while preserving Designer resources.
 - Added a shared `Database` helper in each app so forms create connections and fill tables through one local entry point.
+- Centralized user-facing error messages so technical exception details are written to Debug output instead of message boxes.
 
 ## Still Recommended
 
-- Add a small logging layer instead of showing raw database exception messages to users.
+- Replace Debug-only diagnostics with a real logging sink if the project is prepared for production support.
 - Add tests around booking validation and appointment conflict checks if the project is developed further.

@@ -115,6 +115,36 @@ namespace bitcINTERFACE
         {
             ApplyRolePermissions();
             lblWelcome.Text = "Welcome, " + currentUsername;
+            ArrangeVisibleButtons();
+        }
+
+        private void ArrangeVisibleButtons()
+        {
+            Button[] actionButtons = { button7, button1, button2, button3, button6, button5, button4 };
+            int leftMargin = 58;
+            int columnGap = 28;
+            int top = 178;
+            int rowGap = 74;
+            int buttonHeight = 58;
+            int buttonWidth = (ClientSize.Width - (leftMargin * 2) - columnGap) / 2;
+            buttonWidth = Math.Max(220, buttonWidth);
+            int index = 0;
+
+            button8.Location = new Point(ClientSize.Width - button8.Width - leftMargin, 24);
+
+            foreach (Button button in actionButtons)
+            {
+                if (!button.Visible)
+                {
+                    continue;
+                }
+
+                int column = index % 2;
+                int row = index / 2;
+                button.Size = new Size(buttonWidth, buttonHeight);
+                button.Location = new Point(leftMargin + (column * (buttonWidth + columnGap)), top + (row * rowGap));
+                index++;
+            }
         }
     }
 }

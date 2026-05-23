@@ -23,11 +23,15 @@ namespace bitcINTERFACE
 
         private void AppointmentsForm_Load(object sender, EventArgs e)
         {
-
+            ApplyInterfaceStyle();
             // Set the format for the time picker
             dateTimePicker2.Format = DateTimePickerFormat.Custom;
             dateTimePicker2.CustomFormat = "HH:mm"; // Hours and minutes
             dateTimePicker2.ShowUpDown = true;
+            dateTimePicker2.Visible = true;
+            dateTimePicker2.MaxDate = DateTime.Today.AddDays(1);
+            dateTimePicker2.MinDate = DateTime.Today;
+            dateTimePicker2.Value = DateTime.Today.AddHours(9);
 
             // Load all necessary data when the form opens
             LoadAppointments();
@@ -41,11 +45,145 @@ namespace bitcINTERFACE
             {
                 string query = "SELECT * FROM appointments";
                 dataGridView1.DataSource = Database.FillDataTable(query);
+                ConfigureAppointmentsGrid();
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Failed to load appointments: " + ex.Message);
+                UserMessages.ShowDatabaseError("Failed to load appointments", ex);
             }
+        }
+
+        private void ApplyInterfaceStyle()
+        {
+            Font = new Font("Segoe UI", 9.8F, FontStyle.Regular);
+            BackColor = Color.White;
+            BackgroundImageLayout = ImageLayout.Stretch;
+            StartPosition = FormStartPosition.CenterScreen;
+            FormBorderStyle = FormBorderStyle.FixedSingle;
+            MaximizeBox = false;
+
+            label7.Text = "Appointment ID";
+            label1.Text = "Date";
+            label2.Text = "Time";
+            label6.Text = "Service";
+            label5.Text = "Status";
+            label4.Text = "Pet ID";
+            label3.Text = "Veterinarian";
+            label8.Visible = false;
+
+            StyleLabel(label1);
+            StyleLabel(label2);
+            StyleLabel(label3);
+            StyleLabel(label4);
+            StyleLabel(label5);
+            StyleLabel(label6);
+            StyleLabel(label7);
+
+            StyleTextBox(textBox1);
+            StyleTextBox(textBox2);
+            StyleTextBox(textBox3);
+            comboBox2.Font = new Font("Segoe UI", 10.4F);
+            comboBox4.Font = new Font("Segoe UI", 10.4F);
+            dateTimePicker1.Font = new Font("Segoe UI", 10.4F);
+            dateTimePicker2.Font = new Font("Segoe UI", 10.4F);
+
+            StylePrimaryButton(button1, "Add Appointment");
+            StyleDangerButton(button2, "Delete");
+            StyleSecondaryButton(button3, "Update");
+
+            dataGridView1.Location = new Point(32, 42);
+            dataGridView1.Size = new Size(548, 384);
+
+            int labelX = 616;
+            int inputX = 616;
+            int top = 46;
+            int gap = 59;
+            PositionField(label7, textBox1, labelX, inputX, top);
+            PositionField(label1, dateTimePicker1, labelX, inputX, top + gap);
+            PositionField(label2, dateTimePicker2, labelX, inputX, top + (gap * 2));
+            PositionField(label6, textBox3, labelX, inputX, top + (gap * 3));
+            PositionField(label5, comboBox4, labelX, inputX, top + (gap * 4));
+            PositionField(label4, textBox2, labelX, inputX, top + (gap * 5));
+            PositionField(label3, comboBox2, labelX, inputX, top + (gap * 6));
+
+            button1.Location = new Point(32, 452);
+            button2.Location = new Point(214, 452);
+            button3.Location = new Point(396, 452);
+            ClientSize = new Size(910, 520);
+        }
+
+        private void ConfigureAppointmentsGrid()
+        {
+            dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dataGridView1.BackgroundColor = Color.White;
+            dataGridView1.BorderStyle = BorderStyle.FixedSingle;
+            dataGridView1.EnableHeadersVisualStyles = false;
+            dataGridView1.ColumnHeadersDefaultCellStyle.BackColor = Color.FromArgb(0, 96, 173);
+            dataGridView1.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
+            dataGridView1.ColumnHeadersDefaultCellStyle.Font = new Font("Segoe UI", 9.5F, FontStyle.Bold);
+            dataGridView1.DefaultCellStyle.Font = new Font("Segoe UI", 9.2F);
+            dataGridView1.RowHeadersVisible = false;
+
+            SetColumnHeader(idDataGridViewTextBoxColumn, "ID");
+            SetColumnHeader(appointmentDateDataGridViewTextBoxColumn, "Date");
+            SetColumnHeader(appointmentTimeDataGridViewTextBoxColumn, "Time");
+            SetColumnHeader(typeOfServiceDataGridViewTextBoxColumn, "Service");
+            SetColumnHeader(statusDataGridViewTextBoxColumn, "Status");
+            SetColumnHeader(petIdDataGridViewTextBoxColumn, "Pet ID");
+            SetColumnHeader(vetIdDataGridViewTextBoxColumn, "Vet ID");
+        }
+
+        private void PositionField(Label label, Control control, int labelX, int inputX, int top)
+        {
+            label.Location = new Point(labelX, top);
+            control.Location = new Point(inputX, top + 27);
+            control.Size = new Size(260, 32);
+        }
+
+        private void StyleLabel(Label label)
+        {
+            label.BackColor = Color.Transparent;
+            label.Font = new Font("Segoe UI", 9.8F, FontStyle.Bold);
+            label.ForeColor = Color.FromArgb(34, 58, 94);
+        }
+
+        private void StyleTextBox(TextBox textBox)
+        {
+            textBox.BorderStyle = BorderStyle.FixedSingle;
+            textBox.Font = new Font("Segoe UI", 10.4F);
+            textBox.Multiline = false;
+        }
+
+        private void StylePrimaryButton(Button button, string text)
+        {
+            StyleButton(button, text, Color.FromArgb(0, 96, 173));
+        }
+
+        private void StyleSecondaryButton(Button button, string text)
+        {
+            StyleButton(button, text, Color.FromArgb(40, 47, 56));
+        }
+
+        private void StyleDangerButton(Button button, string text)
+        {
+            StyleButton(button, text, Color.FromArgb(178, 67, 67));
+        }
+
+        private void StyleButton(Button button, string text, Color backColor)
+        {
+            button.Text = text;
+            button.BackColor = backColor;
+            button.ForeColor = Color.White;
+            button.FlatStyle = FlatStyle.Flat;
+            button.FlatAppearance.BorderSize = 0;
+            button.Font = new Font("Segoe UI", 10.2F, FontStyle.Bold);
+            button.Size = new Size(158, 42);
+            button.UseVisualStyleBackColor = false;
+        }
+
+        private void SetColumnHeader(DataGridViewColumn column, string headerText)
+        {
+            column.HeaderText = headerText;
         }
 
         // Method to load veterinarians into their ComboBox (comboBox2)
@@ -62,7 +200,7 @@ namespace bitcINTERFACE
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Failed to load veterinarians: " + ex.Message);
+                UserMessages.ShowDatabaseError("Failed to load veterinarians", ex);
             }
         }
         private void LoadPetsComboBox()
@@ -221,7 +359,7 @@ namespace bitcINTERFACE
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("Error creating appointment: " + ex.Message, "Database Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    UserMessages.ShowDatabaseError("Could not create appointment", ex);
                 }
             }
             LoadAppointments();
@@ -255,7 +393,7 @@ namespace bitcINTERFACE
                     }
                     catch (Exception ex)
                     {
-                        MessageBox.Show("Error deleting appointment: " + ex.Message, "Database Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        UserMessages.ShowDatabaseError("Could not delete appointment", ex);
                     }
                 }
             }
@@ -294,7 +432,7 @@ namespace bitcINTERFACE
                     }
                     catch (Exception ex)
                     {
-                        MessageBox.Show("Error updating appointment: " + ex.Message, "Database Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        UserMessages.ShowDatabaseError("Could not update appointment", ex);
                     }
                 }
             }
